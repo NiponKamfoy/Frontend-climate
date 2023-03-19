@@ -1,0 +1,41 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.map-container-compare {
+    position: fixed;
+    height: 100vh;
+    width: 50vw;
+    z-index: 0;
+}
+
+.grid-container {
+    display: grid;
+    z-index: 0;
+    grid-template-columns: 50% 50% ;
+
+}
+
+.grid-item {
+    text-align: center;
+}
+
+/* ----- 3 Map ----- */
+
+.map-container-compare1 {
+    position: fixed;
+    height: 100vh;
+    width: 33.3vw;
+    z-index: 0;
+}
+
+.grid-container1 {
+    display: grid;
+    z-index: 0;
+    grid-template-columns: 33.3% 33.3% 33.3%;
+}
+
+.grid-item1 {
+    text-align: center;
+}
