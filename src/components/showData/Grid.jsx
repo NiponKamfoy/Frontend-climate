@@ -51,15 +51,18 @@ const Grid = (props) => {
 
     let urlRequest = url.concat('/',dataProvider,'_',typeValue,'_', indexName, '&', area.split(' ')[0], '&', dateInput, '&', typeIdex)
 
+    
     if (typeIdex === 'SPI') {
+        console.log(typeValue);
         typeIdex = '_SPI'
-        if (typeValue === 'RCP4.5') {
+        if (typeValue === 'rcp45') {
             typeValue = '45'
         } else {
             typeValue = '85'
         }
         urlRequest = url.concat('/',dataProvider,typeValue,'_', 'spi', '_m', indexName.split(' ')[0], '&', area.split(' ')[0], '&', dateInput, '&', typeIdex)
     }
+    console.log(urlRequest);
 
     useEffect(()=>{
         const reqOptions ={
