@@ -25,6 +25,8 @@ const Setting = (props) => {
 
   const draggleRef = useRef(null);
 
+  const formatter = (value) => `${value}%`;
+
   const showModal = () => {
     setOpen(true);
   };
@@ -60,9 +62,9 @@ const Setting = (props) => {
   };
 
   const graphShow = (e) => {
-    if (e.target.value == "On") {
-      props.setWidth("75%")
-      props.setHeight("25%")
+    if (e.target.value === "On") {
+      props.setWidth("30%")
+      props.setHeight("30%")
       props.setGraphShow(e.target.value)
     } else {
       props.setWidth("0")
@@ -303,13 +305,14 @@ const Setting = (props) => {
                 </Radio.Group>
         </p>
         <br />
-        <p className="topic">Grid opacity</p>
+        <p className="topic">Grid opacity(%)</p>
         <Row>
           <Col span={12}>
             <Slider
               min={1}
-              max={10}
+              max={100}
               onChange={opecityChange}
+              tooltip={{formatter}}
               value={typeof inputValue === 'number' ? inputValue : 7}
             />
           </Col>

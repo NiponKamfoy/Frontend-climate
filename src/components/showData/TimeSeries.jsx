@@ -89,9 +89,9 @@ const TimeSeries = (props) => {
                 {/* <LineChart width={450} height={250} data={data} className='graph'> */}
                     {/* <CartesianGrid stroke="black" fill='#555' fillOpacity={0.7}/> */}
                     <CartesianGrid 
-                        stroke="white" 
-                        strokeOpacity={0.5} 
-                        fill='white' 
+                        stroke="black" 
+                        strokeOpacity={0.3} 
+                        fill='#555' 
                         fillOpacity={0}
                     />
                     <Line 
@@ -144,9 +144,9 @@ const TimeSeries = (props) => {
                     {/* <BarChart width={450} height={250} data={data} className='graph'> */}
                         {/* <CartesianGrid stroke="black" fill='#555' fillOpacity={0.7}/> */}
                         <CartesianGrid 
-                            stroke="white" 
-                            strokeOpacity={0.5} 
-                            fill='white' 
+                            stroke="black" 
+                            strokeOpacity={0.3} 
+                            fill='#555' 
                             fillOpacity={0}
                         />
                         <Bar 

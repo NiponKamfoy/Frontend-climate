@@ -61,7 +61,7 @@ const SettingCompare2 = (props) => {
   };
 
   const graphShow = (e) => {
-    if (e.target.value == "On") {
+    if (e.target.value === "On") {
       props.setWidth("60%")
       props.setHeight("30%")
       props.setGraphShow(e.target.value)

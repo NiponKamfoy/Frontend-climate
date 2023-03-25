@@ -90,7 +90,7 @@ const Legend2 = () => {
           legend.addTo(mapInstance);
       
           return () => legend.remove();
-    }, [])
+    }, [mapInstance])
     
     // var data = [
     //     {"color":"#d94d3d","value":0},

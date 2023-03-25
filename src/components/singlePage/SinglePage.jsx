@@ -28,7 +28,7 @@ const SinglePage = () => {
   const [graphType, setGraphType] = useState('Linechart')
   const [graphShow, setGraphShow] = useState('On')
   const [dataType, setDataType] = useState('Overall')
-  const [gridOpacity, setGridopacity] = useState(7)
+  const [gridOpacity, setGridopacity] = useState(70)
   const [legendMax, setLegendMax] =useState('') 
   const [legendMin, setLegendMin] =useState('') 
   const [legendType, setLegendType] = useState('Interval')
@@ -156,7 +156,7 @@ const SinglePage = () => {
           data={selectData} 
           date={selectDate}         
         />
-    </MapContainer>    
+    </MapContainer>   
   )
 }
 

@@ -83,7 +83,7 @@ const Grid = (props) => {
                 var myStyleGrid = {
                     color: "white",
                     weight: 0,
-                    fillOpacity: props.gridOpacity/10,
+                    fillOpacity: props.gridOpacity/100,
                     fillColor: 'white',
                     borderColor: 'black'
                 }
