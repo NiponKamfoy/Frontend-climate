@@ -43,16 +43,22 @@ const TimeSeries = (props) => {
     const draggleRef = useRef(null);
 
     useEffect(() => {
-        if (props.dataType === 'Overall'){
+        if (props.compareMode !== undefined && props.compareMode === "On"){
+            setKey('area')
+            setValue('index')
+            setData(props.compareDataGraph)
+            console.log(props.compareDataGraph);
+        }
+        else if (props.dataType === 'Overall'){
             setKey('date')
             setValue('index')
             setData(props.data)
-        } else {
+        } else if (props.dataType === "Seasonal"){
             setKey('month')
             setValue('value')
             setData(props.data2)
-        }
-    }, [props.dataType, props.data, props.data2])
+        } 
+    }, [props.dataType, props.data, props.data2, props.compareMode, props.compareDataGraph])
  
     if (props.type === 'Linechart') {
         return (
@@ -110,7 +116,7 @@ const TimeSeries = (props) => {
             </ResponsiveContainer>    
         )
     }
-    else {
+    else if (props.type === "Histrogram"){
         return (
             <Draggable
                 disabled={disabled}

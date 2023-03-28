@@ -53,7 +53,6 @@ const Grid = (props) => {
 
     
     if (typeIdex === 'SPI') {
-        console.log(typeValue);
         typeIdex = '_SPI'
         if (typeValue === 'rcp45') {
             typeValue = '45'
@@ -62,7 +61,6 @@ const Grid = (props) => {
         }
         urlRequest = url.concat('/',dataProvider,typeValue,'_', 'spi', '_m', indexName.split(' ')[0], '&', area.split(' ')[0], '&', dateInput, '&', typeIdex)
     }
-    console.log(urlRequest);
 
     useEffect(()=>{
         const reqOptions ={
@@ -73,7 +71,12 @@ const Grid = (props) => {
         console.log(urlRequest);
         fetch(urlRequest, reqOptions)
         .then(r => r.json())
-        .then(data => setData(data))
+        .then(dataApi => {
+            setData(dataApi)
+            if(props.setCompareData !== undefined){
+                props.setCompareData(dataApi)
+            }
+        })
         .catch(error => console.log(error.message))
     },[props.area, props.data, props.date, props.gridOpacity, props.legendMax, props.legendMin, urlRequest])
 
