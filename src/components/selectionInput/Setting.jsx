@@ -337,6 +337,13 @@ const Setting = (props) => {
                   <Radio value="Gradient">Gradient</Radio>
                 </Radio.Group>
         </p>
+        <p className="sub-topic">
+            Color: <Radio.Group onChange={legendChange} value={props.legendType} optionType='button'>
+                    <Radio value="Divergent">Divergent</Radio>
+                    <Radio value="SequentialRed">Sequential Red</Radio>
+                    <Radio value="SequentialBlue">Sequential Blue</Radio>
+                  </Radio.Group>
+          </p>
         <br />
         <InputNumber
           prefix="Min:"
