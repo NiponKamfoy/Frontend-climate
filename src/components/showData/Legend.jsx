@@ -82,10 +82,24 @@ const Legend = (props) => {
     data = dataIndex.SPI.spi
   }
 
-  // get color depending on population density value
-  var color = data.color
+
   var max = data.max
   var min = data.min
+  // get color depending on population density value
+  var color = dataIndex.divergentReverse
+
+  if (props.compareMode !== undefined && props.compareMode === 'On' && props.dataIndexName.split(' ')[1] === 'month'){
+    color = dataIndex.divergent
+  }
+  else if (props.compareMode !== undefined && props.compareMode === 'On' ){
+    max = 20
+    min = -20
+  }
+  else if (props.dataIndexName.split(' ')[0] !== 'CDD' && props.dataIndexName.split(' ')[0] !== 'CSDI' && props.dataIndexName.split(' ')[0] !== 'PRCPTOT'){
+    color = dataIndex.divergent
+  }
+  
+  
   var unit = data.unit
   
   if (props.legendMax !== '' && props.legendMin !== ''){

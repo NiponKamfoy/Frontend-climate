@@ -1,0 +1,9 @@
+version: '3'
+services:
+  frontend-react:
+    build: .
+    container_name: "front-end-climate"
+    ports:
+      - "3001:3000"
+    volumes: 
+      - .:/app

@@ -445,6 +445,7 @@ const ComparePage3 = (props) => {
                         gridOpacity={gridOpacity3}
                         legendMax={legendMax3}
                         legendMin={legendMin3}
+                        compareMode = {compareMode}
                         setCompareData = {setCompareData3}
                     />
 
@@ -452,6 +453,7 @@ const ComparePage3 = (props) => {
                         dataIndexName = {dataIndex3}
                         legendMax={legendMax3}
                         legendMin={legendMin3}
+                        compareMode = {compareMode}
                     />
         
                     <Breadcrumb 
