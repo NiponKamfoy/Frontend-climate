@@ -4,6 +4,7 @@ import { Layout } from 'antd';
 import TimeSeries from '../showData/TimeSeries';
 import Grid from '../showData/Grid';
 import Legend from '../showData/Legend';
+import GradientLegend from '../showData/GradientLegend';
 import Breadcrumb from '../showData/Breadcrumb';
 import SettingCompare2 from './SettingCompare2'
 import 'leaflet/dist/leaflet.css';
@@ -288,9 +289,17 @@ const ComparePage3 = (props) => {
                     />
                     
                     <Legend 
-                        dataIndexName = {dataIndex1}
+                        dataIndexName={dataIndex1}
                         legendMax={legendMax1}
                         legendMin={legendMin1}
+                        legendType={legendType1}
+                    />
+
+                    <GradientLegend 
+                        dataIndexName={dataIndex1}
+                        legendMax={legendMax1}
+                        legendMin={legendMin1}
+                        legendType={legendType1}        
                     />
         
                     <Breadcrumb 
@@ -368,9 +377,17 @@ const ComparePage3 = (props) => {
                     />
 
                     <Legend 
-                        dataIndexName = {dataIndex2}
+                        dataIndexName={dataIndex2}
                         legendMax={legendMax2}
                         legendMin={legendMin2}
+                        legendType={legendType2}
+                    />
+
+                    <GradientLegend 
+                        dataIndexName={dataIndex2}
+                        legendMax={legendMax2}
+                        legendMin={legendMin2}
+                        legendType={legendType2}        
                     />
         
                     <Breadcrumb 
@@ -450,10 +467,17 @@ const ComparePage3 = (props) => {
                     />
 
                     <Legend 
-                        dataIndexName = {dataIndex3}
+                        dataIndexName={dataIndex3}
                         legendMax={legendMax3}
                         legendMin={legendMin3}
-                        compareMode = {compareMode}
+                        legendType={legendType3}
+                    />
+
+                    <GradientLegend 
+                        dataIndexName={dataIndex3}
+                        legendMax={legendMax3}
+                        legendMin={legendMin3}
+                        legendType={legendType3}        
                     />
         
                     <Breadcrumb 
@@ -487,9 +511,9 @@ const ComparePage3 = (props) => {
                         setLegendType={setLegendType3}
                         setHeight={setHeight3}
                         setWidth={setWidth3}
-                        enableDiffMode = {true} 
-                        setCompareMode = {compareModeChange}
-                        compareMode = {compareMode}
+                        enableDiffMode={true} 
+                        setCompareMode={compareModeChange}
+                        compareMode={compareMode}
                     />
                 </MapContainer>
             </div>

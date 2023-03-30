@@ -4,14 +4,13 @@ import { Layout } from 'antd';
 import TimeSeries from '../showData/TimeSeries';
 import Grid from '../showData/Grid';
 import Legend from '../showData/Legend';
-import Legend2 from '../showData/Legend2';
+import GradientLegend from '../showData/GradientLegend';
 import Breadcrumb from '../showData/Breadcrumb';
 import Setting from '../selectionInput/Setting';
 import 'leaflet/dist/leaflet.css';
 import "../../data/dataSelection";
 import './singlePage.css';
-
-import GradientLegend from '../showData/GradientLegend';
+import { useEffect } from 'react';
 
 const SinglePage = () => {
 
@@ -80,6 +79,19 @@ const SinglePage = () => {
     setLegendMin(min)
   }
 
+//   useEffect(() => {
+//      if (props.dataType === 'Overall'){
+//          setKey('date')
+//          setValue('index')
+//          setData(props.data)
+//      } 
+        // else if (props.dataType === "Seasonal"){
+//          setKey('month')
+//          setValue('value')
+//          setData(props.data2)
+//      } 
+//    }, [])
+
   return (
     <MapContainer 
       center={center} 
@@ -124,7 +136,6 @@ const SinglePage = () => {
           legendType={legendType}
         />
 
-        {/* <Legend2 /> */}
         <GradientLegend 
           dataIndexName={dataIndex}
           legendMax={legendMax}

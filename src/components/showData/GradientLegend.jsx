@@ -5,7 +5,7 @@ import dataIndex from  '../../data/dataLegend'
 import './gradientLegend.css'  
 
 const GradientLegend = (props) => {
-
+  
   const mapInstance = useMap();
 
   var data = dataIndex.indices.CDD 
@@ -124,24 +124,33 @@ const GradientLegend = (props) => {
               min
             ];
       
-            let labels = [];
-            let to;
+            // let labels = [];
+            // let to;
       
-            for (let i = 0; i < grades.length; i++) {
-              to = grades[i];
+            // for (let i = 0; i < grades.length; i++) {
+            //   to = grades[i];
       
-              labels.push(
-                to.toFixed(0)
-              );
-            }
+            //   labels.push(
+            //     to.toFixed(1)
+            //   );
+            // }
     
             div.innerHTML += div.innerHTML += "<h4>".concat("SPI ", "(" , props.dataIndexName , ")"  , "</h4>");
-            div.innerHTML += '<i style="background: linear-gradient(0deg, '+ dataIndex.divergent +');"></i>';
-            div.innerHTML += labels.join("<br>");
-            // div.innerHTML += '<i style="background: rgba(110,  0,  0,255)"></i><br>';
-            // div.innerHTML += '<i style="background: rgba(115,  0,  0,255)"></i><br>';
-            // div.innerHTML += '<i style="background: rgba(120,  0,  0,255)"></i><br>';
-            // div.innerHTML += '<small>GHI (kWh/an/m²)<small>'; 
+            div.innerHTML += '<i style="background: linear-gradient(0deg, '+ color +');"></i>';
+            div.innerHTML += grades[0]
+            div.innerHTML += '<br>'
+            div.innerHTML += '<br>'
+            div.innerHTML += grades[2]
+            div.innerHTML += '<br>'
+            div.innerHTML += '<br>'
+            div.innerHTML += grades[4]
+            div.innerHTML += '<br>'
+            div.innerHTML += '<br>'
+            div.innerHTML += grades[6]
+            div.innerHTML += '<br>'
+            div.innerHTML += '<br>'
+            div.innerHTML += grades[8]
+            // div.innerHTML += labels.join("<br>");
     
             return div;
         };
@@ -169,24 +178,33 @@ const GradientLegend = (props) => {
               min
             ];
       
-            let labels = [];
-            let to;
+            // let labels = [];
+            // let to;
       
-            for (let i = 0; i < grades.length; i++) {
-              to = grades[i];
+            // for (let i = 0; i < grades.length; i++) {
+            //   to = grades[i];
       
-              labels.push(
-                to.toFixed(0)
-              );
-            }
+            //   labels.push(
+            //     to.toFixed(1)
+            //   );
+            // }
     
             div.innerHTML += "<h4>".concat("SPI ", "(" , props.dataIndexName , ")"  , "</h4>");
-            div.innerHTML += '<i style="background: linear-gradient(0deg, '+ dataIndex.divergent +');"></i>';
-            div.innerHTML += labels.join("<br>");
-            // div.innerHTML += '<i style="background: rgba(110,  0,  0,255)"></i><br>';
-            // div.innerHTML += '<i style="background: rgba(115,  0,  0,255)"></i><br>';
-            // div.innerHTML += '<i style="background: rgba(120,  0,  0,255)"></i><br>';
-            // div.innerHTML += '<small>GHI (kWh/an/m²)<small>'; 
+            div.innerHTML += '<i style="background: linear-gradient(0deg, '+ color +');"></i>';
+            div.innerHTML += grades[0]
+            div.innerHTML += '<br>'
+            div.innerHTML += '<br>'
+            div.innerHTML += grades[2]
+            div.innerHTML += '<br>'
+            div.innerHTML += '<br>'
+            div.innerHTML += grades[4]
+            div.innerHTML += '<br>'
+            div.innerHTML += '<br>'
+            div.innerHTML += grades[6]
+            div.innerHTML += '<br>'
+            div.innerHTML += '<br>'
+            div.innerHTML += grades[8]
+            // div.innerHTML += labels.join("<br>");
     
             return div;
         };
@@ -215,24 +233,33 @@ const GradientLegend = (props) => {
               min
             ];
       
-            let labels = [];
-            let to;
+            // let labels = [];
+            // let to;
+            
+            // for (let i = 0; i < grades.length; i++) {
+            //   to = grades[i];
       
-            for (let i = 0; i < grades.length; i++) {
-              to = grades[i];
-      
-              labels.push(
-                to.toFixed(0)
-              );
-            }
+            //   labels.push(
+            //     to.toFixed(0)
+            //   );
+            // }
     
             div.innerHTML += "<h4>" + props.dataIndexName + " (" + unit + ")" + "</h4>"
-            div.innerHTML += '<i style="background: linear-gradient(0deg, '+ dataIndex.divergent +');"></i>';
-            div.innerHTML += labels.join("<br>");
-            // div.innerHTML += '<i style="background: rgba(110,  0,  0,255)"></i><br>';
-            // div.innerHTML += '<i style="background: rgba(115,  0,  0,255)"></i><br>';
-            // div.innerHTML += '<i style="background: rgba(120,  0,  0,255)"></i><br>';
-            // div.innerHTML += '<small>GHI (kWh/an/m²)<small>'; 
+            div.innerHTML += '<i style="background: linear-gradient(0deg, '+ color +');"></i>';
+            div.innerHTML += grades[0]
+            div.innerHTML += '<br>'
+            div.innerHTML += '<br>'
+            div.innerHTML += grades[2]
+            div.innerHTML += '<br>'
+            div.innerHTML += '<br>'
+            div.innerHTML += grades[4]
+            div.innerHTML += '<br>'
+            div.innerHTML += '<br>'
+            div.innerHTML += grades[6]
+            div.innerHTML += '<br>'
+            div.innerHTML += '<br>'
+            div.innerHTML += grades[8]
+            // div.innerHTML += labels.join("<br>");
     
             return div;
         };

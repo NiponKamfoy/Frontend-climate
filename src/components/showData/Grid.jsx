@@ -26,9 +26,9 @@ const Grid = (props) => {
     if (typeIdex === 'SPI') {
         dataindex = dataIndex[typeIdex]['spi']
     }
-    var colors = dataIndex.divergentReverse
+    var colors = dataIndex.divergent
     if (indexName !== 'CDD' && indexName !== 'PRCPTOT' && indexName !== 'CSDI'){
-        colors = dataIndex.divergent
+        colors = dataIndex.divergentReverse
     }
     var max = dataindex.max
     var min = dataindex.min

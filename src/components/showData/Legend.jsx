@@ -86,7 +86,7 @@ const Legend = (props) => {
   var max = data.max
   var min = data.min
   // get color depending on population density value
-  var color = dataIndex.divergentReverse
+  var color = dataIndex.divergent
 
   if (props.compareMode !== undefined && props.compareMode === 'On' && props.dataIndexName.split(' ')[1] === 'month'){
     color = dataIndex.divergent
@@ -96,9 +96,8 @@ const Legend = (props) => {
     min = -20
   }
   else if (props.dataIndexName.split(' ')[0] !== 'CDD' && props.dataIndexName.split(' ')[0] !== 'CSDI' && props.dataIndexName.split(' ')[0] !== 'PRCPTOT'){
-    color = dataIndex.divergent
+    color = dataIndex.divergentReverse
   }
-  
   
   var unit = data.unit
   

@@ -1,5 +1,5 @@
 .info2 {
-    padding: 12px 8px;
+    padding: 10px 6px;
     font: 14px/16px Arial, Helvetica, sans-serif;
     background: white;
     background: rgba(255, 255, 255, 0.8);
@@ -38,7 +38,7 @@
         width: 25px;
         height: 200px;
         float: left;
-        margin-right: 8px;
+        margin-left: 12px;
     }
 }
 

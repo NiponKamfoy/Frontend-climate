@@ -4,6 +4,7 @@ import { Layout } from 'antd';
 import TimeSeries from '../showData/TimeSeries';
 import Grid from '../showData/Grid';
 import Legend from '../showData/Legend';
+import GradientLegend from '../showData/GradientLegend';
 import Breadcrumb from '../showData/Breadcrumb';
 import SettingCompare from './SettingCompare'
 import 'leaflet/dist/leaflet.css';
@@ -190,6 +191,14 @@ const ComparePage = (props) => {
                         dataIndexName={dataIndex1}
                         legendMax={legendMax1}
                         legendMin={legendMin1}
+                        legendType={legendType1}
+                    />
+
+                    <GradientLegend 
+                        dataIndexName={dataIndex1}
+                        legendMax={legendMax1}
+                        legendMin={legendMin1}
+                        legendType={legendType1}        
                     />
         
                     <Breadcrumb 
@@ -268,6 +277,14 @@ const ComparePage = (props) => {
                         dataIndexName={dataIndex2}
                         legendMax={legendMax2}
                         legendMin={legendMin2}
+                        legendType={legendType2}
+                    />
+                    
+                    <GradientLegend 
+                        dataIndexName={dataIndex2}
+                        legendMax={legendMax2}
+                        legendMin={legendMin2}
+                        legendType={legendType2}        
                     />
         
                     <Breadcrumb 

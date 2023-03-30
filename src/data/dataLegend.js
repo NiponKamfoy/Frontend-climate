@@ -1,7 +1,7 @@
 const dataIndex = {
 
-    "divergent": ['#d73027','#f46d43','#fdae61','#fee090','#ffffbf','#e0f3f8','#abd9e9','#74add1','#4575b4'],
-    "divergentReverse": ['#4575b4','#74add1','#abd9e9','#e0f3f8','#ffffbf','#fee090','#fdae61','#f46d43','#d73027'],
+    "divergent": ['#4575b4','#74add1','#abd9e9','#e0f3f8','#ffffbf','#fee090','#fdae61','#f46d43','#d73027'],
+    "divergentReverse": ['#d73027','#f46d43','#fdae61','#fee090','#ffffbf','#e0f3f8','#abd9e9','#74add1','#4575b4'],
     "sequentialBlue": ['#f7fbff','#deebf7','#c6dbef','#9ecae1','#6baed6','#4292c6','#2171b5','#08519c','#08306b'],
     "sequentialBlueReverse": ['#08306b','#08519c','#2171b5','#4292c6','#6baed6','#9ecae1','#c6dbef','#deebf7','#f7fbff'],
     "sequentialRed": ['#fff5f0','#fee0d2','#fcbba1','#fc9272','#fb6a4a','#ef3b2c','#cb181d','#a50f15','#67000d'],
@@ -116,12 +116,12 @@ const dataIndex = {
         'TN10P': {
             'max': 8,
             'min': 0,
-            'unit': "Days"
+            'unit': "%"
         },
         'TN90P': {
             'max': 33,
             'min': 0,
-            'unit': "Days"
+            'unit': "%"
         },
         'TNn': {
             'max': 25,
@@ -146,12 +146,12 @@ const dataIndex = {
         'TX10P': {
             'max': 11,
             'min': 0,
-            'unit': "Days"
+            'unit': "%"
         },
         'TX90P': {
             'max': 32,
             'min': 0,
-            'unit': "Days"
+            'unit': "%"
         },
         'TXn': {
             'max': 32,
