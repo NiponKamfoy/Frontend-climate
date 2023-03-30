@@ -11,6 +11,8 @@ import 'leaflet/dist/leaflet.css';
 import "../../data/dataSelection";
 import './singlePage.css';
 
+import GradientLegend from '../showData/GradientLegend';
+
 const SinglePage = () => {
 
   const center = [13.2955977,102.2090103]
@@ -119,10 +121,15 @@ const SinglePage = () => {
           dataIndexName={dataIndex}
           legendMax={legendMax}
           legendMin={legendMin}
+          legendType={legendType}
         />
 
-        <Legend2 
-
+        {/* <Legend2 /> */}
+        <GradientLegend 
+          dataIndexName={dataIndex}
+          legendMax={legendMax}
+          legendMin={legendMin}
+          legendType={legendType}        
         />
 
         <Breadcrumb 

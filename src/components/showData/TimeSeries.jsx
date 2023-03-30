@@ -98,7 +98,7 @@ const TimeSeries = (props) => {
                         stroke="black" 
                         strokeOpacity={0.3} 
                         fill='#555' 
-                        fillOpacity={0}
+                        fillOpacity={0.2}
                     />
                     <Line 
                         name={props.dataIndexName} 
@@ -153,7 +153,7 @@ const TimeSeries = (props) => {
                             stroke="black" 
                             strokeOpacity={0.3} 
                             fill='#555' 
-                            fillOpacity={0}
+                            fillOpacity={0.2}
                         />
                         <Bar 
                             name={props.dataIndexName} 

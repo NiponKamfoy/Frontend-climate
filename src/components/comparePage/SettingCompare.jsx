@@ -242,6 +242,9 @@ const SettingCompare = (props) => {
             <h3>Setting</h3>
           </div>
         }
+        style={{
+          top: 20,
+        }}
         open={open}
         onOk={handleOk}
         onCancel={handleCancel}
@@ -252,7 +255,7 @@ const SettingCompare = (props) => {
             onClick={() => {
               legendMinChange('');
               legendMaxChange('');
-              opecityChange(7);
+              opecityChange(70);
             }}
           >
             Reset
@@ -263,7 +266,7 @@ const SettingCompare = (props) => {
             onClick={() => {
               legendMinChange('');
               legendMaxChange('');
-              opecityChange(7);
+              opecityChange(70);
               handleCancel();
             }}
           >
@@ -328,6 +331,8 @@ const SettingCompare = (props) => {
                 margin: '0 16px',
               }}
               value={inputValue}
+              formatter={(value) => `${value}%`}
+              parser={(value) => value.replace('%', '')}
               onChange={opecityChange}
             />
           </Col>
@@ -362,7 +367,7 @@ const SettingCompare = (props) => {
 
       <Modal title="About" open={open1} onOk={handleOk1} onCancel={handleCancel1}>
           <ol className='sub-topic'>Shape file :</ol> 
-            <li>Southeast Asia : <a href='https://csuwan.weebly.com/360436343623360936603650362736213604--download.html'>Click here</a></li>
+            <li>Southeast Asia : <a href=''>Click here</a></li>
             <li>Province in Thailand : <a href='https://csuwan.weebly.com/360436343623360936603650362736213604--download.html'>Click here</a></li>
             <br />
           <ol className='sub-topic'>TileLayer :</ol>
