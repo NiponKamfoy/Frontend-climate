@@ -21,6 +21,7 @@ const ComparePage = (props) => {
 
   const [dataIndex1, setDataIndex1] = useState('CDD')
   const [timeSeriesData1, setTimeSeriesData1] = useState([])
+  const [histrogramData1, setHistrogramData1] = useState([])
   const [seasonalData1 ,setSeasonalData1] = useState([])
   const [selectArea1, setSelectArea1] = useState("Thailand")
   const [selectData1, setSelectData1] = useState("ecearth@RCP4.5@indices@CDD")
@@ -58,6 +59,10 @@ const ComparePage = (props) => {
     setSeasonalData1(data)
   }
 
+  const getHistrogramData1 = (data) => {
+    setHistrogramData1(data)
+  }
+
   function SetViewOnChange1(coords) {
     const map = useMap();
     if (["Brunei Darussalam", "Cambodia", "Malaysia", "Indonesia", "Lao People's Democratic Republic", "Myanmar","Philippines", "Thailand", "Timor-Leste", "Vietnam", "Singapore"].includes(selectArea1)){
@@ -87,6 +92,7 @@ const ComparePage = (props) => {
 
     const [dataIndex2, setDataIndex2] = useState('CDD')
     const [timeSeriesData2, setTimeSeriesData2] = useState([])
+    const [histrogramData2, setHistrogramData2] = useState([])
     const [seasonalData2 ,setSeasonalData2] = useState([])
     const [selectArea2, setSelectArea2] = useState("Thailand")
     const [selectData2, setSelectData2] = useState("ecearth@RCP4.5@indices@CDD")
@@ -123,6 +129,10 @@ const ComparePage = (props) => {
     const getSeasonalData2 = (data) => {
         setSeasonalData2(data)
     }
+
+    const getHistrogramData2 = (data) => {
+        setHistrogramData2(data)
+      }
 
     function SetViewOnChange2(coords) {
         const map = useMap();
@@ -172,6 +182,7 @@ const ComparePage = (props) => {
                             dataType={dataType1}
                             height={height1}
                             width={width1}
+                            histrogramData = {histrogramData1}
                             />
                     </Layout>
         
@@ -181,6 +192,7 @@ const ComparePage = (props) => {
                         date={selectDate1} 
                         SetViewOnChange={SetViewOnChange1} 
                         setTimeSeriesData={getTimeSeriesData1} 
+                        setHistrogramData = {getHistrogramData1}
                         setSeasonalData={getSeasonalData1}
                         gridOpacity={gridOpacity1}
                         legendMax={legendMax1}
@@ -257,6 +269,7 @@ const ComparePage = (props) => {
                             type={graphType2} 
                             dataType={dataType2}
                             height={height2}
+                            histrogramData = {histrogramData2}
                             width={width2}
                         />
                     </Layout>
@@ -267,6 +280,7 @@ const ComparePage = (props) => {
                         date={selectDate2} 
                         SetViewOnChange={SetViewOnChange2} 
                         setTimeSeriesData={getTimeSeriesData2} 
+                        setHistrogramData = {getHistrogramData2}
                         setSeasonalData={getSeasonalData2}
                         gridOpacity={gridOpacity2}
                         legendMax={legendMax2}

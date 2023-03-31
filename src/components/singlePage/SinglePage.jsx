@@ -10,7 +10,6 @@ import Setting from '../selectionInput/Setting';
 import 'leaflet/dist/leaflet.css';
 import "../../data/dataSelection";
 import './singlePage.css';
-import { useEffect } from 'react';
 
 const SinglePage = () => {
 

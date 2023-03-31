@@ -2,7 +2,6 @@ import React, { useState, useEffect} from 'react'
 import { GeoJSON, Popup, FeatureGroup } from 'react-leaflet' 
 import dataIndex from '../../data/dataLegend'
 import * as turf from '@turf/turf'
-import { PropertySafetyFilled } from '@ant-design/icons'
 
 const Grid = (props) => {
    

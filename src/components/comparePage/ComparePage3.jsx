@@ -21,6 +21,7 @@ const ComparePage3 = (props) => {
   
     const [dataIndex1, setDataIndex1] = useState('CDD')
     const [timeSeriesData1, setTimeSeriesData1] = useState([])
+    const [histrogramData1, setHistrogramData1] = useState([])
     const [seasonalData1 ,setSeasonalData1] = useState([])
     const [selectArea1, setSelectArea1] = useState("Thailand")
     const [selectData1, setSelectData1] = useState("ecearth@RCP4.5@indices@CDD")
@@ -34,9 +35,7 @@ const ComparePage3 = (props) => {
     const [legendType1, setLegendType1] = useState('Interval') 
     const [compareData1, setCompareData1] = useState([])
 
-    const compareDataChange1 = (data) => {
-        setCompareData1(data)
-    }
+   
 
   const areaChange1 = (area) => {
     setSelectArea1(area)
@@ -85,6 +84,10 @@ const ComparePage3 = (props) => {
     setLegendMin1(min)
   }
 
+  const getHistrogramData1 = (data) => {
+    setHistrogramData1(data)
+  }
+
 // =======================================================================
 
     const [height2, setHeight2] = useState("30%")
@@ -92,6 +95,7 @@ const ComparePage3 = (props) => {
 
     const [dataIndex2, setDataIndex2] = useState('CDD')
     const [timeSeriesData2, setTimeSeriesData2] = useState([])
+    const [histrogramData2, setHistrogramData2] = useState([])
     const [seasonalData2 ,setSeasonalData2] = useState([])
     const [selectArea2, setSelectArea2] = useState("Thailand")
     const [selectData2, setSelectData2] = useState("ecearth@RCP4.5@indices@CDD")
@@ -104,10 +108,8 @@ const ComparePage3 = (props) => {
     const [graphShow2, setGraphShow2] = useState('On')
     const [legendType2, setLegendType2] = useState('Interval') 
     const [compareData2, setCompareData2] = useState([])
+    const [compareMode2, setCompareMode2] = useState('Off')
 
-    const compareDataChange2 = (data) => {
-        setCompareData2(data)
-    }
     const areaChange2 = (area) => {
         setSelectArea2(area)
     }
@@ -155,6 +157,34 @@ const ComparePage3 = (props) => {
         setLegendMin2(min)
     }
 
+    const  [diffTimeseries2, setDiffTimeseries2] = useState([])
+    const compareModeChange2 = (mode) => {
+        setCompareMode2(mode)
+        if (mode === 'On'){
+            for (let i = 0; i < compareData1.length; i++){
+                compareData2[i]['properties']['index'] = compareData1[i]['properties']['index'] - compareData2[i]['properties']['index']
+            }
+            var sum1 = 0
+            for (let i = 0; i < timeSeriesData1.length; i++){
+                sum1 += timeSeriesData1[i]['index']
+            }
+            const avgTimeseries1 = sum1 / timeSeriesData1.length
+            var sum2 = 0
+            for (let i = 0; i < timeSeriesData2.length; i++){
+                sum2 += timeSeriesData2[i]['index']
+            }
+            const avgTimeseries2 = sum2 / timeSeriesData1.length
+            setDiffTimeseries2([{'area': selectArea1, 'index': avgTimeseries1-avgTimeseries2}])
+        }else {
+            let temp = gridOpacity3 + 1
+            setGridopacity2(temp)
+        }
+    }
+
+    const getHistrogramData2 = (data) => {
+        setHistrogramData2(data)
+      }
+
 // =======================================================================
     
     const [height3, setHeight3] = useState("30%")
@@ -162,6 +192,7 @@ const ComparePage3 = (props) => {
 
     const [dataIndex3, setDataIndex3] = useState('CDD')
     const [timeSeriesData3, setTimeSeriesData3] = useState([])
+    const [histrogramData3, setHistrogramData3] = useState([])
     const [seasonalData3 ,setSeasonalData3] = useState([])
     const [selectArea3, setSelectArea3] = useState("Thailand")
     const [selectData3, setSelectData3] = useState("ecearth@RCP4.5@indices@CDD")
@@ -173,7 +204,7 @@ const ComparePage3 = (props) => {
     const [legendMin3, setLegendMin3] =useState('')
     const [graphShow3, setGraphShow3] = useState('On')
     const [legendType3, setLegendType3] = useState('Interval') 
-    const [compareMode, setCompareMode] = useState('Off')
+    const [compareMode3, setCompareMode3] = useState('Off')
     const [compareData3, setCompareData3] = useState([])
 
     const areaChange3 = (area) => {
@@ -222,12 +253,12 @@ const ComparePage3 = (props) => {
     const legendMinChange3 = (min) => {
         setLegendMin3(min)
     }
-    const  [diffTimeseries, setDiffTimeseries] = useState([])
-    const compareModeChange = (mode) => {
-        setCompareMode(mode)
+    const  [diffTimeseries3, setDiffTimeseries3] = useState([])
+    const compareModeChange3 = (mode) => {
+        setCompareMode3(mode)
         if (mode === 'On'){
             for (let i = 0; i < compareData1.length; i++){
-                compareData3[i]['properties']['index'] = compareData1[i]['properties']['index'] - compareData2[i]['properties']['index']
+                compareData3[i]['properties']['index'] = compareData1[i]['properties']['index'] - compareData3[i]['properties']['index']
             }
             var sum1 = 0
             for (let i = 0; i < timeSeriesData1.length; i++){
@@ -235,16 +266,20 @@ const ComparePage3 = (props) => {
             }
             const avgTimeseries1 = sum1 / timeSeriesData1.length
             var sum2 = 0
-            for (let i = 0; i < timeSeriesData2.length; i++){
-                sum2 += timeSeriesData2[i]['index']
+            for (let i = 0; i < timeSeriesData3.length; i++){
+                sum2 += timeSeriesData3[i]['index']
             }
-            const avgTimeseries2 = sum2 / timeSeriesData1.length
-            setDiffTimeseries([{'area': selectArea1, 'index': avgTimeseries1-avgTimeseries2}])
+            const avgTimeseries3 = sum2 / timeSeriesData1.length
+            setDiffTimeseries3([{'area': selectArea1, 'index': avgTimeseries1-avgTimeseries3}])
         }else {
             let temp = gridOpacity3 + 1
             setGridopacity3(temp)
         }
     }
+
+    const getHistrogramData3 = (data) => {
+        setHistrogramData3(data)
+      }
 
 // =======================================================================
    
@@ -271,6 +306,7 @@ const ComparePage3 = (props) => {
                             type={graphType1} 
                             dataType={dataType1}
                             height={height1}
+                            histrogramData = {histrogramData1}
                             width={width1}
                         />
                     </Layout>
@@ -285,6 +321,7 @@ const ComparePage3 = (props) => {
                         gridOpacity={gridOpacity1}
                         legendMax={legendMax1}
                         legendMin={legendMin1}
+                        setHistrogramData = {getHistrogramData1}
                         setCompareData = {setCompareData1}
                     />
                     
@@ -360,6 +397,9 @@ const ComparePage3 = (props) => {
                             dataType={dataType2}
                             height={height2}
                             width={width2}
+                            compareMode = {compareMode2}
+                            histrogramData = {histrogramData2}
+                            compareDataGraph = {diffTimeseries2}
                         />
                     </Layout>
         
@@ -374,6 +414,8 @@ const ComparePage3 = (props) => {
                         legendMax={legendMax2}
                         setCompareData = {setCompareData2}
                         legendMin={legendMin2}
+                        setHistrogramData = {getHistrogramData2}
+                        compareMode = {compareMode2}
                     />
 
                     <Legend 
@@ -421,6 +463,9 @@ const ComparePage3 = (props) => {
                         setLegendType={setLegendType2}
                         setHeight={setHeight2}
                         setWidth={setWidth2}
+                        enableDiffMode={true} 
+                        setCompareMode={compareModeChange2}
+                        compareMode={compareMode2}
                     />
                 </MapContainer>
             </div>
@@ -447,8 +492,9 @@ const ComparePage3 = (props) => {
                             dataType={dataType3}
                             height={height3}
                             width={width3}
-                            compareMode = {compareMode}
-                            compareDataGraph = {diffTimeseries}
+                            compareMode = {compareMode3}
+                            histrogramData = {histrogramData3}
+                            compareDataGraph = {diffTimeseries3}
                         />
                     </Layout>
         
@@ -462,7 +508,8 @@ const ComparePage3 = (props) => {
                         gridOpacity={gridOpacity3}
                         legendMax={legendMax3}
                         legendMin={legendMin3}
-                        compareMode = {compareMode}
+                        compareMode = {compareMode3}
+                        setHistrogramData = {getHistrogramData3}
                         setCompareData = {setCompareData3}
                     />
 
@@ -512,8 +559,8 @@ const ComparePage3 = (props) => {
                         setHeight={setHeight3}
                         setWidth={setWidth3}
                         enableDiffMode={true} 
-                        setCompareMode={compareModeChange}
-                        compareMode={compareMode}
+                        setCompareMode={compareModeChange3}
+                        compareMode={compareMode3}
                     />
                 </MapContainer>
             </div>

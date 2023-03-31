@@ -63,7 +63,7 @@ const TimeSeries = (props) => {
             setValue('value')
             setData(props.data2)
         } 
-    }, [props.dataType, props.data, props.data2, props.compareMode, props.compareDataGraph])
+    }, [props.dataType, props.data, props.data2, props.compareMode, props.compareDataGraph, props.histrogramData, props.type])
  
     if (props.type === 'Linechart') {
         return (
