@@ -158,10 +158,8 @@ const Setting = (props) => {
       ]),
       { type: 'divider' },
       getItem('Select Dataset', 'dataType', <DatabaseOutlined />, selectDataMenu),
-      { type: 'divider' },
-      getItem(
-          <SelectDate date={props.date} picker={picker} dateChange={props.dateChange} /> 
-      , 'dateRange'),
+      // { type: 'divider' },
+      // getItem(<SelectDate date={props.date} picker={picker} dateChange={props.dateChange} style={{tex: "center"}}/> , 'dateRange'),
   ];
 
   const onClick = (e) => {
@@ -234,9 +232,9 @@ const Setting = (props) => {
             <h3>Setting</h3>
           </div>
         }
-        style={{
-          top: 20,
-        }}
+        // style={{
+        //   top: 10
+        // }}
         open={open}
         onOk={handleOk}
         onCancel={handleCancel}
@@ -287,83 +285,120 @@ const Setting = (props) => {
         )}
       >
         <Menu defaultSelectedKeys={['1']} mode="vertical" items={items_1} onClick={onClick}/>
+        <SelectDate date={props.date} picker={picker} dateChange={props.dateChange}/>
         <br />
-        <p className="topic">Graph</p>
-        <p className="sub-topic">
-          Type: <Radio.Group onChange={graphChange} value={props.graphType} optionType='button'>
-                  <Radio value="Linechart">Linechart</Radio>
-                  <Radio value="Histrogram">Histrogram</Radio>
-                </Radio.Group>
+        <p style={{fontSize: '18px', fontWeight: 'bold'}}>
+          Graph
         </p>
-        <p className="sub-topic">
-          Data: <Radio.Group onChange={dataChange} value={props.dataType} optionType='button'>
-                  <Radio value="Overall">Overall</Radio>
-                  <Radio value="Seasonal">Seasonal</Radio>
-                </Radio.Group>
+        <p style={{fontSize: '12px', fontWeight: 'bold'}}>
+          Type: <br />
+          <Radio.Group onChange={graphChange} value={props.graphType} optionType='button' size='small'>
+            <Radio value="Linechart" className='ant-radio-button'>
+              Linechart
+            </Radio>
+            <Radio value="Histrogram" className='ant-radio-button'>
+              Histrogram
+            </Radio>
+          </Radio.Group>
         </p>
-        <p className="sub-topic">
-          Show: <Radio.Group onChange={graphShow} value={props.graphShow} optionType='button'>
-                  <Radio value="On">On</Radio>
-                  <Radio value="Off">Off</Radio>
-                </Radio.Group>
+        <p style={{fontSize: '12px', fontWeight: 'bold'}}>
+          Data: <br />
+          <Radio.Group onChange={dataChange} value={props.dataType} optionType='button' size='small'>
+            <Radio value="Overall" className='ant-radio-button'>
+              Overall
+            </Radio>
+            <Radio value="Seasonal" className='ant-radio-button'>
+              Seasonal
+            </Radio>
+          </Radio.Group>
+        </p>
+        <p style={{fontSize: '12px', fontWeight: 'bold'}}>
+          Show: <br />
+          <Radio.Group onChange={graphShow} value={props.graphShow} optionType='button' size='small'>
+            <Radio value="On" className='ant-radio-button'>
+              On
+            </Radio>
+            <Radio value="Off" className='ant-radio-button'>
+              Off
+            </Radio>
+          </Radio.Group>
         </p>
         <br />
-        <p className="topic">Grid opacity</p>
+        <p style={{fontSize: '18px', fontWeight: 'bold'}}>
+          Grid opacity
+        </p>
         <Row>
           <Col span={12}>
             <Slider
-              min={1}
+              min={0}
               max={100}
               onChange={opecityChange}
               tooltip={{formatter}}
-              value={typeof inputValue === 'number' ? inputValue : 7}
+              value={typeof inputValue === 'number' ? inputValue : 70}
+              style={{width: '150%'}}
             />
           </Col>
           <Col span={4}>
             <InputNumber
-              min={1}
-              max={10}
+              min={0}
+              max={100}
               style={{
-                margin: '0 16px',
+                margin: '0 145px',
               }}
               value={inputValue}
               formatter={(value) => `${value}%`}
               parser={(value) => value.replace('%', '')}
               onChange={opecityChange}
+              size='small'
             />
           </Col>
         </Row>
         <br />
-        <p className="topic">Legend</p>
-        <br />
-        <p className="sub-topic">
-          Type: <Radio.Group onChange={legendChange} value={props.legendType} optionType='button'>
-                  <Radio value="Interval">Interval</Radio>
-                  <Radio value="Gradient">Gradient</Radio>
-                </Radio.Group>
+        <p style={{fontSize: '18px', fontWeight: 'bold'}}>
+          Legend
         </p>
-        <p className="sub-topic">
-            Color: <Radio.Group onChange={legendChange} value={props.legendType} optionType='button'>
-                    <Radio value="Divergent">Divergent</Radio>
-                    <Radio value="SequentialRed">Sequential Red</Radio>
-                    <Radio value="SequentialBlue">Sequential Blue</Radio>
-                  </Radio.Group>
+        <p style={{fontSize: '12px', fontWeight: 'bold'}}>
+          Type: <br />
+          <Radio.Group onChange={legendChange} value={props.legendType} optionType='button' size='small'>
+            <Radio value="Interval" className='ant-radio-button'>
+              Interval
+            </Radio>
+            <Radio value="Gradient" className='ant-radio-button'>
+              Gradient
+            </Radio>
+          </Radio.Group>
+        </p>
+        <p style={{fontSize: '12px', fontWeight: 'bold'}}>
+            Color: <br />
+            <Radio.Group onChange={legendChange} value={props.legendType} optionType='button' size='small'>
+              <Radio value="Divergent" className='ant-radio-button'>
+                Divergent
+              </Radio>
+              <Radio value="SequentialRed" className='ant-radio-button'>
+                Sequential Red
+              </Radio>
+              <Radio value="SequentialBlue" className='ant-radio-button'>
+                Sequential Blue
+              </Radio>
+            </Radio.Group>
           </p>
         <br />
         <InputNumber
           prefix="Min:"
-          style={{width: '49%'}}
+          style={{width: '49.5%'}}
           onChange={legendMinChange}
           defaultValue={props.legendMin}
           value={legendMinValue} 
+          size='small'
         />
         <> </>
         <InputNumber
           prefix="Max:"
-          style={{width: '49%'}}
+          style={{width: '49.5%'}}
           onChange={legendMaxChange}
           defaultValue={props.legendMax}  
-          value={legendMaxValue}      
+          value={legendMaxValue}   
+          size='small'   
         />
       </Modal>
 

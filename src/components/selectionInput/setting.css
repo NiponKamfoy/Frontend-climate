@@ -1,16 +1,11 @@
+.ant-radio-button {
+  text-align: center;
+  width: 117.5px;
+}
+
 .setting {
   position: absolute;
   z-index: 1000;
   top: 90px;
   right: 10px;
-}
-
-.topic {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.sub-topic {
-  font-size: 16px;
-  font-weight: bold;
 }

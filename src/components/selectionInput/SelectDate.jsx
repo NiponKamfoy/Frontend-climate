@@ -1,8 +1,7 @@
 import React from 'react'
 import { DatePicker } from 'antd';
 import dayjs from 'dayjs';
-// import moment from 'moment';
-// import 'antd/dist/antd.css';
+import './selectDate.css'
 
 const { RangePicker } = DatePicker;
 const SelectDate = (props) => {
@@ -15,10 +14,10 @@ const SelectDate = (props) => {
     return (
         <div>
         <RangePicker 
-            onChange={(val) => setDate(val)}
-            className="rangepicker" 
+            onChange={(val) => setDate(val)} 
             picker={props.picker}
             defaultValue={[dayjs('1970/01/01'), dayjs('2005/01/01')]}
+            className='ant-calendar-picker'
         />
       </div>
     )
