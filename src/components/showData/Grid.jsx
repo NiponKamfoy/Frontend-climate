@@ -2,6 +2,7 @@ import React, { useState, useEffect} from 'react'
 import { GeoJSON, Popup, FeatureGroup } from 'react-leaflet' 
 import dataIndex from '../../data/dataLegend'
 import * as turf from '@turf/turf'
+import { PropertySafetyFilled } from '@ant-design/icons'
 
 const Grid = (props) => {
    
@@ -103,6 +104,7 @@ const Grid = (props) => {
                     props.SetViewOnChange(data.geometry.coordinates[0][0])
                     props.setTimeSeriesData(data.properties.time_series)
                     props.setSeasonalData(data.properties.seasonal)
+                    props.setHistrogramData(data.properties.histrogram)
                 }
 
                 if(data.properties.index < min){

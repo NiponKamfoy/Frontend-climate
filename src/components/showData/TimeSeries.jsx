@@ -8,7 +8,7 @@ import { LineChart,
     BarChart, 
     Legend, 
     Bar,
-    ResponsiveContainer } from 'recharts';
+    ResponsiveContainer} from 'recharts';
 import Draggable from 'react-draggable';
 import './timeSeries.css'
 
@@ -48,6 +48,11 @@ const TimeSeries = (props) => {
             setValue('index')
             setData(props.compareDataGraph)
             console.log(props.compareDataGraph);
+        }
+        else if (props.type === 'Histrogram'){
+            setKey('value')
+            setValue('frequency')
+            setData(props.histrogramData)
         }
         else if (props.dataType === 'Overall'){
             setKey('date')
@@ -118,57 +123,82 @@ const TimeSeries = (props) => {
     }
     else if (props.type === "Histrogram"){
         return (
-            <Draggable
-                disabled={disabled}
-                bounds={bounds}
-                onStart={(event, uiData) => onStart(event, uiData)}
-            >
-                <ResponsiveContainer 
+            // <Draggable
+            //     disabled={disabled}
+            //     bounds={bounds}
+            //     onStart={(event, uiData) => onStart(event, uiData)}
+            // >
+            //     <ResponsiveContainer 
+            //         height={props.height} 
+            //         width={props.width} 
+            //         debounce={1} 
+            //         className='graph'
+            //     >
+            //         <BarChart 
+            //             data={data}
+            //             style={{
+            //                 width: '100%',
+            //                 cursor: 'move',
+            //             }}
+            //             onMouseEnter={() => {
+            //                 if (disabled) {
+            //                     setDisabled(false);
+            //                 }
+            //             }}
+            //             onMouseLeave={() => {
+            //                 setDisabled(true);
+            //             }}
+            //             onMouseMove={() => {
+            //                 <div ref={draggleRef}></div>
+            //             }}
+            //         >
+            //         {/* <BarChart width={450} height={250} data={data} className='graph'> */}
+            //             {/* <CartesianGrid stroke="black" fill='#555' fillOpacity={0.7}/> */}
+            //             <CartesianGrid 
+            //                 stroke="black" 
+            //                 strokeOpacity={0.3} 
+            //                 fill='#555' 
+            //                 fillOpacity={0.2}
+            //             />
+            //             <Bar 
+            //                 name={props.dataIndexName} 
+            //                 unit={props.dataIndexName.unit} 
+            //                 dataKey={value} 
+            //                 fill="#3288bd" 
+            //             />
+            //             <XAxis dataKey={key} />
+            //             <YAxis />
+            //             <Tooltip />
+            //             <Legend verticalAlign="bottom"/> 
+            //             {/* #8884d8 */}
+            //         </BarChart>
+            //     </ResponsiveContainer>
+            // </Draggable>
+
+            <ResponsiveContainer 
                     height={props.height} 
                     width={props.width} 
                     debounce={1} 
                     className='graph'
                 >
-                    <BarChart 
-                        data={data}
-                        style={{
-                            width: '100%',
-                            cursor: 'move',
-                        }}
-                        onMouseEnter={() => {
-                            if (disabled) {
-                                setDisabled(false);
-                            }
-                        }}
-                        onMouseLeave={() => {
-                            setDisabled(true);
-                        }}
-                        onMouseMove={() => {
-                            <div ref={draggleRef}></div>
-                        }}
-                    >
-                    {/* <BarChart width={450} height={250} data={data} className='graph'> */}
-                        {/* <CartesianGrid stroke="black" fill='#555' fillOpacity={0.7}/> */}
-                        <CartesianGrid 
-                            stroke="black" 
+
+            <BarChart data={data}>
+                <CartesianGrid strokeDasharray="3 3" stroke="black" 
                             strokeOpacity={0.3} 
                             fill='#555' 
-                            fillOpacity={0.2}
-                        />
-                        <Bar 
-                            name={props.dataIndexName} 
-                            unit={props.dataIndexName.unit} 
-                            dataKey={value} 
-                            fill="#3288bd" 
-                        />
-                        <XAxis dataKey={key} />
-                        <YAxis />
-                        <Tooltip />
-                        <Legend verticalAlign="bottom"/> 
-                        {/* #8884d8 */}
-                    </BarChart>
-                </ResponsiveContainer>
-            </Draggable>
+                            fillOpacity={0.2}/>
+                <XAxis dataKey={key}/>
+                <YAxis label={{ value: "Day", angle: -90, position: 'insideLeft' }} />
+                <Tooltip />
+                <Legend />
+                <Bar
+                    dataKey={value} 
+                    fill="#3288bd" 
+                    name={props.dataIndexName} 
+                    unit={props.dataIndexName.unit}
+                />
+            </BarChart>
+            </ResponsiveContainer>
         )
     }
 }

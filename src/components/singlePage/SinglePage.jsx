@@ -23,6 +23,7 @@ const SinglePage = () => {
   const [dataIndex, setDataIndex] = useState('CDD')
   const [timeSeriesData, setTimeSeriesData] = useState([])
   const [seasonalData ,setSeasonalData] = useState([])
+  const [histrogramData, setHistrogramData] = useState([])
   const [selectArea, setSelectArea] = useState("Thailand")
   const [selectData, setSelectData] = useState("ecearth@RCP4.5@indices@CDD")
   const [selectDate, setSelectDate] = useState('Thu, 19 Mar 1970 17:50:44 GMT,Sat, 19 Mar 2005 17:50:44 GMT')
@@ -55,6 +56,10 @@ const SinglePage = () => {
 
   const getSeasonalData = (data) => {
     setSeasonalData(data)
+  }
+
+  const getHistrogramData = (data) => {
+    setHistrogramData(data)
   }
 
   function SetViewOnChange(coords) {
@@ -114,6 +119,7 @@ const SinglePage = () => {
               dataType={dataType}
               height={height}
               width={width}
+              histrogramData = {histrogramData}
             />
         </Layout>
 
@@ -124,6 +130,7 @@ const SinglePage = () => {
           SetViewOnChange={SetViewOnChange} 
           setTimeSeriesData={getTimeSeriesData} 
           setSeasonalData={getSeasonalData}
+          setHistrogramData = {getHistrogramData}
           gridOpacity={gridOpacity}
           legendMax={legendMax}
           legendMin={legendMin}
