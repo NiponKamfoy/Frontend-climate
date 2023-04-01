@@ -98,6 +98,11 @@ const GradientLegend = (props) => {
     color = dataIndex.divergent
   }
    
+  if (props.legendMax !== '' && props.legendMin !== ''){
+    max = props.legendMax
+    min = props.legendMin
+  }
+
   var unit = data.unit
 
   const interval = (max - min)/8
@@ -137,19 +142,19 @@ const GradientLegend = (props) => {
     
             div.innerHTML += div.innerHTML += "<h4>".concat("SPI ", "(" , props.dataIndexName , ")"  , "</h4>");
             div.innerHTML += '<i style="background: linear-gradient(0deg, '+ color +');"></i>';
-            div.innerHTML += grades[0]
+            div.innerHTML += grades[0].toFixed(1)
             div.innerHTML += '<br>'
             div.innerHTML += '<br>'
-            div.innerHTML += grades[2]
+            div.innerHTML += grades[2].toFixed(1)
             div.innerHTML += '<br>'
             div.innerHTML += '<br>'
-            div.innerHTML += grades[4]
+            div.innerHTML += grades[4].toFixed(1)
             div.innerHTML += '<br>'
             div.innerHTML += '<br>'
-            div.innerHTML += grades[6]
+            div.innerHTML += grades[6].toFixed(1)
             div.innerHTML += '<br>'
             div.innerHTML += '<br>'
-            div.innerHTML += grades[8]
+            div.innerHTML += grades[8].toFixed(1)
             // div.innerHTML += labels.join("<br>");
     
             return div;
@@ -191,19 +196,19 @@ const GradientLegend = (props) => {
     
             div.innerHTML += "<h4>".concat("SPI ", "(" , props.dataIndexName , ")"  , "</h4>");
             div.innerHTML += '<i style="background: linear-gradient(0deg, '+ color +');"></i>';
-            div.innerHTML += grades[0]
+            div.innerHTML += grades[0].toFixed(1)
             div.innerHTML += '<br>'
             div.innerHTML += '<br>'
-            div.innerHTML += grades[2]
+            div.innerHTML += grades[2].toFixed(1)
             div.innerHTML += '<br>'
             div.innerHTML += '<br>'
-            div.innerHTML += grades[4]
+            div.innerHTML += grades[4].toFixed(1)
             div.innerHTML += '<br>'
             div.innerHTML += '<br>'
-            div.innerHTML += grades[6]
+            div.innerHTML += grades[6].toFixed(1)
             div.innerHTML += '<br>'
             div.innerHTML += '<br>'
-            div.innerHTML += grades[8]
+            div.innerHTML += grades[8].toFixed(1)
             // div.innerHTML += labels.join("<br>");
     
             return div;
@@ -246,19 +251,19 @@ const GradientLegend = (props) => {
     
             div.innerHTML += "<h4>" + props.dataIndexName + " (" + unit + ")" + "</h4>"
             div.innerHTML += '<i style="background: linear-gradient(0deg, '+ color +');"></i>';
-            div.innerHTML += grades[0]
+            div.innerHTML += grades[0].toFixed(0)
             div.innerHTML += '<br>'
             div.innerHTML += '<br>'
-            div.innerHTML += grades[2]
+            div.innerHTML += grades[2].toFixed(0)
             div.innerHTML += '<br>'
             div.innerHTML += '<br>'
-            div.innerHTML += grades[4]
+            div.innerHTML += grades[4].toFixed(0)
             div.innerHTML += '<br>'
             div.innerHTML += '<br>'
-            div.innerHTML += grades[6]
+            div.innerHTML += grades[6].toFixed(0)
             div.innerHTML += '<br>'
             div.innerHTML += '<br>'
-            div.innerHTML += grades[8]
+            div.innerHTML += grades[8].toFixed(0)
             // div.innerHTML += labels.join("<br>");
     
             return div;

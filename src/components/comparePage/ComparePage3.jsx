@@ -2,8 +2,8 @@ import React, {  useState } from 'react';
 import { MapContainer, TileLayer, useMap } from 'react-leaflet'
 import { Layout } from 'antd';
 import TimeSeries from '../showData/TimeSeries';
-import Grid from '../showData/Grid';
-import Legend from '../showData/Legend';
+import Grid from '../showData/IntervalGrid';
+import IntervalLegend from '../showData/IntervalLegend';
 import GradientLegend from '../showData/GradientLegend';
 import Breadcrumb from '../showData/Breadcrumb';
 import SettingCompare2 from './SettingCompare2'
@@ -325,7 +325,7 @@ const ComparePage3 = (props) => {
                         setCompareData = {setCompareData1}
                     />
                     
-                    <Legend 
+                    <IntervalLegend 
                         dataIndexName={dataIndex1}
                         legendMax={legendMax1}
                         legendMin={legendMin1}
@@ -418,7 +418,7 @@ const ComparePage3 = (props) => {
                         compareMode = {compareMode2}
                     />
 
-                    <Legend 
+                    <IntervalLegend 
                         dataIndexName={dataIndex2}
                         legendMax={legendMax2}
                         legendMin={legendMin2}
@@ -513,7 +513,7 @@ const ComparePage3 = (props) => {
                         setCompareData = {setCompareData3}
                     />
 
-                    <Legend 
+                    <IntervalLegend 
                         dataIndexName={dataIndex3}
                         legendMax={legendMax3}
                         legendMin={legendMin3}

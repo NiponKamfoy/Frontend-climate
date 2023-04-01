@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { MapContainer, TileLayer, useMap } from 'react-leaflet'
 import { Layout } from 'antd';
 import TimeSeries from '../showData/TimeSeries';
-import Grid from '../showData/Grid';
-import Legend from '../showData/Legend';
+import IntervalGrid from '../showData/IntervalGrid';
+import IntervalLegend from '../showData/IntervalLegend';
+import GradientGrid from '../showData/GradientGrid';
 import GradientLegend from '../showData/GradientLegend';
 import Breadcrumb from '../showData/Breadcrumb';
 import Setting from '../selectionInput/Setting';
@@ -122,7 +123,7 @@ const SinglePage = () => {
             />
         </Layout>
 
-        <Grid 
+        {/* <IntervalGrid 
           area={selectArea} 
           data={selectData} 
           date={selectDate} 
@@ -135,11 +136,24 @@ const SinglePage = () => {
           legendMin={legendMin}
         />
 
-        <Legend 
+        <IntervalLegend 
           dataIndexName={dataIndex}
           legendMax={legendMax}
           legendMin={legendMin}
           legendType={legendType}
+        /> */}
+
+        <GradientGrid 
+          area={selectArea} 
+          data={selectData} 
+          date={selectDate} 
+          SetViewOnChange={SetViewOnChange} 
+          setTimeSeriesData={getTimeSeriesData} 
+          setSeasonalData={getSeasonalData}
+          setHistrogramData = {getHistrogramData}
+          gridOpacity={gridOpacity}
+          legendMax={legendMax}
+          legendMin={legendMin}
         />
 
         <GradientLegend 

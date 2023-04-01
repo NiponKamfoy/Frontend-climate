@@ -3,7 +3,7 @@ import { GeoJSON, Popup, FeatureGroup } from 'react-leaflet'
 import dataIndex from '../../data/dataLegend'
 import * as turf from '@turf/turf'
 
-const Grid = (props) => {
+const IntervalGrid = (props) => {
    
     const [data, setData] = useState([])
         
@@ -147,4 +147,4 @@ const Grid = (props) => {
     )
 }
 
-export default Grid;
+export default IntervalGrid;

@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { useMap } from "react-leaflet";
 import L from "leaflet";
 import dataIndex from  '../../data/dataLegend'
-import './legend.css'  
+import './intervalLegend.css'  
 
-const Legend = (props) => {
+const IntervalLegend = (props) => {
 
   const mapInstance = useMap();
   
@@ -333,4 +333,4 @@ const Legend = (props) => {
   }, [props.dataIndexName, props.legendMax,props.legendMin, data.color, mapInstance, color, interval, min, unit]);
 };
 
-export default Legend;
+export default IntervalLegend;
