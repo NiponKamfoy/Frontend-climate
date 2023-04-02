@@ -5,10 +5,9 @@ import { LineChart,
     YAxis, 
     CartesianGrid, 
     Tooltip, 
-    BarChart, 
     Legend, 
     Bar,
-    ResponsiveContainer} from 'recharts';
+    ResponsiveContainer,Area, ComposedChart} from 'recharts';
 import Draggable from 'react-draggable';
 import './timeSeries.css'
 
@@ -39,7 +38,33 @@ const TimeSeries = (props) => {
           bottom: clientHeight - (targetRect.bottom - uiData.y),
         });
     };
-  
+
+    function calculateMean(data) {
+        const total = data.reduce((acc, { frequency }) => acc + frequency, 0);
+        return data.reduce((acc, { value, frequency }) => acc + value * frequency, 0) / total;
+      }
+      
+    function calculateStandardDeviation(data, mean) {
+    const total = data.reduce((acc, { frequency }) => acc + frequency, 0);
+    return Math.sqrt(
+        data.reduce((acc, { value, frequency }) => acc + frequency * (value - mean) ** 2, 0) / total
+    );
+    }
+    
+    const mean = calculateMean(props.histrogramData);
+    const stdDev = calculateStandardDeviation(props.histrogramData, mean);
+    
+    function generateBellCurveData(mean, stdDev, numPoints = 100) {
+    const data = [];
+    const step = stdDev * 6 / numPoints;
+    for (let i = mean - stdDev * 3; i <= mean + stdDev * 3; i += step) {
+        data.push({ x: i, y: (1 / (stdDev * Math.sqrt(2 * Math.PI))) * Math.exp((-1*(i - mean)) ** 2 / (2 * stdDev ** 2)) });
+    }
+    console.log(data);
+    return data;
+    }
+    const [bellCurveData, setBellCurveData] = useState([])
+
     const draggleRef = useRef(null);
 
     useEffect(() => {
@@ -48,11 +73,15 @@ const TimeSeries = (props) => {
             setValue('index')
             setData(props.compareDataGraph)
             console.log(props.compareDataGraph);
+           
+           
         }
         else if (props.type === 'Histrogram'){
             setKey('value')
             setValue('frequency')
             setData(props.histrogramData)
+            let tempBellcurve = generateBellCurveData(mean, stdDev)
+            setBellCurveData(tempBellcurve)
         }
         else if (props.dataType === 'Overall'){
             setKey('date')
@@ -63,7 +92,10 @@ const TimeSeries = (props) => {
             setValue('value')
             setData(props.data2)
         } 
-    }, [props.dataType, props.data, props.data2, props.compareMode, props.compareDataGraph, props.histrogramData, props.type])
+    }, [props.dataType, props.data, props.data2, props.compareMode, props.compareDataGraph, props.histrogramData, props.type, mean, stdDev])
+
+    
+      
  
     if (props.type === 'Linechart') {
         return (
@@ -123,57 +155,6 @@ const TimeSeries = (props) => {
     }
     else if (props.type === "Histrogram"){
         return (
-            // <Draggable
-            //     disabled={disabled}
-            //     bounds={bounds}
-            //     onStart={(event, uiData) => onStart(event, uiData)}
-            // >
-            //     <ResponsiveContainer 
-            //         height={props.height} 
-            //         width={props.width} 
-            //         debounce={1} 
-            //         className='graph'
-            //     >
-            //         <BarChart 
-            //             data={data}
-            //             style={{
-            //                 width: '100%',
-            //                 cursor: 'move',
-            //             }}
-            //             onMouseEnter={() => {
-            //                 if (disabled) {
-            //                     setDisabled(false);
-            //                 }
-            //             }}
-            //             onMouseLeave={() => {
-            //                 setDisabled(true);
-            //             }}
-            //             onMouseMove={() => {
-            //                 <div ref={draggleRef}></div>
-            //             }}
-            //         >
-            //         {/* <BarChart width={450} height={250} data={data} className='graph'> */}
-            //             {/* <CartesianGrid stroke="black" fill='#555' fillOpacity={0.7}/> */}
-            //             <CartesianGrid 
-            //                 stroke="black" 
-            //                 strokeOpacity={0.3} 
-            //                 fill='#555' 
-            //                 fillOpacity={0.2}
-            //             />
-            //             <Bar 
-            //                 name={props.dataIndexName} 
-            //                 unit={props.dataIndexName.unit} 
-            //                 dataKey={value} 
-            //                 fill="#3288bd" 
-            //             />
-            //             <XAxis dataKey={key} />
-            //             <YAxis />
-            //             <Tooltip />
-            //             <Legend verticalAlign="bottom"/> 
-            //             {/* #8884d8 */}
-            //         </BarChart>
-            //     </ResponsiveContainer>
-            // </Draggable>
 
             <ResponsiveContainer 
                     height={props.height} 
@@ -182,13 +163,12 @@ const TimeSeries = (props) => {
                     className='graph'
                 >
 
-            <BarChart data={data}>
-                <CartesianGrid strokeDasharray="3 3" stroke="black" 
-                            strokeOpacity={0.3} 
-                            fill='#555' 
-                            fillOpacity={0.2}/>
-                <XAxis dataKey={key}/>
-                <YAxis label={{ value: "Day", angle: -90, position: 'insideLeft' }} />
+            <ComposedChart data={data}>
+                <CartesianGrid />
+                <XAxis dataKey={key} xAxisId={0}/>
+                <XAxis data={bellCurveData.x} xAxisId={1} orientation='top'/>
+                <YAxis yAxisId={0}/>
+                <YAxis yAxisId={1} orientation="right"/>
                 <Tooltip />
                 <Legend />
                 <Bar
@@ -196,8 +176,11 @@ const TimeSeries = (props) => {
                     fill="#3288bd" 
                     name={props.dataIndexName} 
                     unit={props.dataIndexName.unit}
+                    yAxisId={0}
+                    xAxisId={0}
                 />
-            </BarChart>
+                <Area data={bellCurveData.y} type="monotone" fill="#82ca9d" stroke="#82ca9d" yAxisId={1} xAxisId={1}/>
+            </ComposedChart>
             </ResponsiveContainer>
         )
     }
