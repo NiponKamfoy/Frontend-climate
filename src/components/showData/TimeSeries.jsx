@@ -58,7 +58,7 @@ const TimeSeries = (props) => {
     const data = [];
     const step = stdDev * 6 / numPoints;
     for (let i = mean - stdDev * 3; i <= mean + stdDev * 3; i += step) {
-        data.push({ x: i, y: (1 / (stdDev * Math.sqrt(2 * Math.PI))) * Math.exp((-1*(i - mean)) ** 2 / (2 * stdDev ** 2)) });
+        data.push({ x: i, y: (1 / (stdDev * Math.sqrt(2 * Math.PI))) * Math.exp(-1*((i - mean) ** 2) / (2 * stdDev ** 2)) });
     }
     console.log(data);
     return data;
@@ -66,6 +66,7 @@ const TimeSeries = (props) => {
     const [bellCurveData, setBellCurveData] = useState([])
 
     const draggleRef = useRef(null);
+    
 
     useEffect(() => {
         if (props.compareMode !== undefined && props.compareMode === "On"){
@@ -80,7 +81,8 @@ const TimeSeries = (props) => {
             setKey('value')
             setValue('frequency')
             setData(props.histrogramData)
-            let tempBellcurve = generateBellCurveData(mean, stdDev)
+            console.log(props.histrogramData);
+            let tempBellcurve = generateBellCurveData(mean, stdDev, props.histrogramData.length)
             setBellCurveData(tempBellcurve)
         }
         else if (props.dataType === 'Overall'){
@@ -165,10 +167,10 @@ const TimeSeries = (props) => {
 
             <ComposedChart data={data}>
                 <CartesianGrid />
-                <XAxis dataKey={key} xAxisId={0}/>
-                <XAxis data={bellCurveData.x} xAxisId={1} orientation='top'/>
-                <YAxis yAxisId={0}/>
-                <YAxis yAxisId={1} orientation="right"/>
+                <XAxis dataKey={key} />
+                {/* <XAxis dataKey={bellCurveData.x}  xAxisId={1} orientation="top"/> */}
+                <YAxis dataKey={value} yAxisId={0}/>
+                <YAxis dataKey={bellCurveData.y} yAxisId={1} orientation="right"/>
                 <Tooltip />
                 <Legend />
                 <Bar
@@ -176,10 +178,9 @@ const TimeSeries = (props) => {
                     fill="#3288bd" 
                     name={props.dataIndexName} 
                     unit={props.dataIndexName.unit}
-                    yAxisId={0}
-                    xAxisId={0}
+                    yAxisId={0} 
                 />
-                <Area data={bellCurveData.y} type="monotone" fill="#82ca9d" stroke="#82ca9d" yAxisId={1} xAxisId={1}/>
+                <Area data={bellCurveData} dataKey={'y'} type="monotone" fill='#82ca9d' stroke="#82ca9d"  yAxisId={1}/>
             </ComposedChart>
             </ResponsiveContainer>
         )
