@@ -33,6 +33,7 @@ const ComparePage = (props) => {
   const [legendMin1, setLegendMin1] =useState('')
   const [graphShow1, setGraphShow1] = useState('On')
   const [legendType1, setLegendType1] = useState('Interval') 
+  const [bellCurve1, setBellCurve1] = useState([])
 
   const areaChange1 = (area) => {
     setSelectArea1(area)
@@ -85,6 +86,10 @@ const ComparePage = (props) => {
     setLegendMin1(min)
   }
 
+  const bellCurveChange1 = (data) => {
+    setBellCurve1(data)
+  }
+
 // =======================================================================
     
     const [height2, setHeight2] = useState("30%")
@@ -104,6 +109,7 @@ const ComparePage = (props) => {
     const [legendMin2, setLegendMin2] =useState('')
     const [graphShow2, setGraphShow2] = useState('On')
     const [legendType2, setLegendType2] = useState('Interval')  
+    const [bellCurve2, setBellCurve2] = useState([])
 
     const areaChange2 = (area) => {
         setSelectArea2(area)
@@ -156,6 +162,9 @@ const ComparePage = (props) => {
         setLegendMin2(min)
     }
 
+    const bellCurveChange2 = (data) => {
+        setBellCurve2(data)
+      }
 // =======================================================================
    
     return (
@@ -183,6 +192,7 @@ const ComparePage = (props) => {
                             height={height1}
                             width={width1}
                             histrogramData = {histrogramData1}
+                            bellCurveChange = {bellCurveChange1}
                             />
                     </Layout>
         
@@ -271,6 +281,9 @@ const ComparePage = (props) => {
                             height={height2}
                             histrogramData = {histrogramData2}
                             width={width2}
+                            bellCurve1 = {bellCurve1}
+                            bellCurveChange = {bellCurveChange2}
+                            bellCurve2 = {bellCurve2}
                         />
                     </Layout>
         

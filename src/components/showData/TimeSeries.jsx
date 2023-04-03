@@ -10,6 +10,7 @@ import { LineChart,
     ResponsiveContainer,Area, ComposedChart} from 'recharts';
 import Draggable from 'react-draggable';
 import './timeSeries.css'
+import jstat from 'jstat';
 
 const TimeSeries = (props) => {
 
@@ -45,23 +46,25 @@ const TimeSeries = (props) => {
       }
       
     function calculateStandardDeviation(data, mean) {
-    const total = data.reduce((acc, { frequency }) => acc + frequency, 0);
-    return Math.sqrt(
-        data.reduce((acc, { value, frequency }) => acc + frequency * (value - mean) ** 2, 0) / total
-    );
+        const total = data.reduce((acc, { frequency }) => acc + frequency, 0);
+        return Math.sqrt(
+            data.reduce((acc, { value, frequency }) => acc + frequency * (value - mean) ** 2, 0) / total
+        );
     }
     
-    const mean = calculateMean(props.histrogramData);
-    const stdDev = calculateStandardDeviation(props.histrogramData, mean);
+    var mean = calculateMean(props.histrogramData);
+    var stdDev = calculateStandardDeviation(props.histrogramData, mean);
     
-    function generateBellCurveData(mean, stdDev, numPoints = 100) {
-    const data = [];
-    const step = stdDev * 6 / numPoints;
-    for (let i = mean - stdDev * 3; i <= mean + stdDev * 3; i += step) {
-        data.push({ x: i, y: (1 / (stdDev * Math.sqrt(2 * Math.PI))) * Math.exp(-1*((i - mean) ** 2) / (2 * stdDev ** 2)) });
-    }
-    console.log(data);
-    return data;
+    function generateBellCurveData(mean, stdDev, numPoints = 100, histrogramdata) {
+        const data = [];
+        
+        for (let i = 0; i < histrogramdata.length; i++){
+            data.push({ x: histrogramdata[i]['value'], y:  1000*(jstat.normal.pdf(histrogramdata[i]['value'], mean, stdDev))});
+        }
+
+        console.log(data);
+
+        return data;
     }
     const [bellCurveData, setBellCurveData] = useState([])
 
@@ -82,7 +85,10 @@ const TimeSeries = (props) => {
             setValue('frequency')
             setData(props.histrogramData)
             console.log(props.histrogramData);
-            let tempBellcurve = generateBellCurveData(mean, stdDev, props.histrogramData.length)
+            mean = calculateMean(props.histrogramData);
+            stdDev = calculateStandardDeviation(props.histrogramData, mean);
+            let tempBellcurve = generateBellCurveData(mean, stdDev, props.histrogramData.length, props.histrogramData)
+            console.log(mean, stdDev);
             setBellCurveData(tempBellcurve)
         }
         else if (props.dataType === 'Overall'){
@@ -156,6 +162,12 @@ const TimeSeries = (props) => {
         )
     }
     else if (props.type === "Histrogram"){
+        var max = data[0]['frequency']
+        for (let i = 0; i < data.length; i++){
+            if (data[i]['frequency'] > max){
+                max = data[i]['frequency']
+            }
+        }
         return (
 
             <ResponsiveContainer 
@@ -167,10 +179,8 @@ const TimeSeries = (props) => {
 
             <ComposedChart data={data}>
                 <CartesianGrid />
-                <XAxis dataKey={key} />
-                {/* <XAxis dataKey={bellCurveData.x}  xAxisId={1} orientation="top"/> */}
-                <YAxis dataKey={value} yAxisId={0}/>
-                <YAxis dataKey={bellCurveData.y} yAxisId={1} orientation="right"/>
+                <XAxis data={bellCurveData} dataKey={'x'} />
+                <YAxis data={bellCurveData} dataKey={'y'} yAxisId={1} domain={[0, max]}/>
                 <Tooltip />
                 <Legend />
                 <Bar
@@ -178,9 +188,9 @@ const TimeSeries = (props) => {
                     fill="#3288bd" 
                     name={props.dataIndexName} 
                     unit={props.dataIndexName.unit}
-                    yAxisId={0} 
+                    yAxisId={1} 
                 />
-                <Area data={bellCurveData} dataKey={'y'} type="monotone" fill='#82ca9d' stroke="#82ca9d"  yAxisId={1}/>
+                <Area data={bellCurveData} dataKey={'y'} name={'Normal Distribution'} type="monotone" fill='red' stroke="red"  yAxisId={1}/>
             </ComposedChart>
             </ResponsiveContainer>
         )

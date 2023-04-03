@@ -12,6 +12,7 @@
     "expo": "^48.0.9",
     "expo-linear-gradient": "~12.1.2",
     "gulp": "^4.0.2",
+    "jstat": "^1.9.6",
     "leaflet": "^1.9.3",
     "moment": "^2.29.4",
     "react": "^18.2.0",
