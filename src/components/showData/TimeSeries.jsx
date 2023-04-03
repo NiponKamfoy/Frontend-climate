@@ -61,22 +61,24 @@ const TimeSeries = (props) => {
         for (let i = 0; i < histrogramdata.length; i++){
             data.push({ x: histrogramdata[i]['value'], y:  1000*(jstat.normal.pdf(histrogramdata[i]['value'], mean, stdDev))});
         }
-
-        console.log(data);
-
         return data;
     }
     const [bellCurveData, setBellCurveData] = useState([])
-
+    const [bellCurveDataCompare, setBellCurveDataCompare] = useState([])
+    const [bellCurveData1, setBellCurveData1] = useState([])
     const draggleRef = useRef(null);
     
 
     useEffect(() => {
         if (props.compareMode !== undefined && props.compareMode === "On"){
-            setKey('area')
-            setValue('index')
-            setData(props.compareDataGraph)
-            console.log(props.compareDataGraph);
+            setKey('value')
+            setValue('frequency')
+            if (props.bellCurveData1 !== undefined || props.bellCurveData1 !== []){
+                setBellCurveData1(props.bellCurveData1)
+            }
+            if (props.bellCurveData !== undefined || props.bellCurveDataCompare !== []){
+                setBellCurveDataCompare(props.bellCurveCompare)
+            }
            
            
         }
@@ -84,12 +86,11 @@ const TimeSeries = (props) => {
             setKey('value')
             setValue('frequency')
             setData(props.histrogramData)
-            console.log(props.histrogramData);
             mean = calculateMean(props.histrogramData);
             stdDev = calculateStandardDeviation(props.histrogramData, mean);
             let tempBellcurve = generateBellCurveData(mean, stdDev, props.histrogramData.length, props.histrogramData)
-            console.log(mean, stdDev);
             setBellCurveData(tempBellcurve)
+            props.setBellCurveData(tempBellcurve)
         }
         else if (props.dataType === 'Overall'){
             setKey('date')
@@ -104,8 +105,60 @@ const TimeSeries = (props) => {
 
     
       
- 
-    if (props.type === 'Linechart') {
+    if (props.compareMode !== undefined && props.compareMode === "On"){
+
+        console.log('bellCurveData1: ', bellCurveData1);
+        console.log('bellCurveDataCompare: ', bellCurveDataCompare);
+
+        var maxY = bellCurveData1[0]['y']
+
+        for (let i = 0; i < bellCurveData1.length; i++){
+            if (bellCurveData1[i]['y'] > maxY){
+                maxY = bellCurveData1[i]['y']
+            }
+        }
+
+        for (let i = 0; i < bellCurveDataCompare.length; i++){
+            if (bellCurveDataCompare[i]['y'] > maxY){
+                maxY = bellCurveDataCompare[i]['y']
+            }
+        }
+
+        var maxX = bellCurveData1[0]['x']
+
+        for (let i = 0; i < bellCurveData1.length; i++){
+            if (bellCurveData1[i]['x'] > maxX){
+                maxX = bellCurveData1[i]['x']
+            }
+        }
+
+        for (let i = 0; i < bellCurveDataCompare.length; i++){
+            if (bellCurveDataCompare[i]['x'] > maxX){
+                maxX = bellCurveDataCompare[i]['x']
+            }
+        }
+        console.log('maxX : ', maxX);
+        return (
+            <ResponsiveContainer 
+                    height={props.height} 
+                    width={props.width} 
+                    debounce={1} 
+                    className='graph'
+                >
+
+            <ComposedChart data={bellCurveDataCompare}>
+                <CartesianGrid />
+                <XAxis data={bellCurveData1} dataKey={'x'} />
+                <YAxis data={bellCurveDataCompare} dataKey={'y'} yAxisId={1} domain={[0, maxY]}/>
+                <Tooltip />
+                <Legend />
+                <Area data={bellCurveData1} dataKey={'y'} name={'Graph 1 :'} type="monotone" fill='green' stroke="green"  yAxisId={1}/>
+                <Area data={bellCurveDataCompare} dataKey={'y'} name={'Graph 2 : '} type="monotone" fill='red' stroke="red"  yAxisId={1}/>
+            </ComposedChart>
+            </ResponsiveContainer>
+        )
+    }
+    else if (props.type === 'Linechart') {
         return (
             <ResponsiveContainer 
                 height={props.height} 

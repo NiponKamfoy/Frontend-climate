@@ -34,7 +34,7 @@ const ComparePage3 = (props) => {
     const [graphShow1, setGraphShow1] = useState('On')
     const [legendType1, setLegendType1] = useState('Interval') 
     const [compareData1, setCompareData1] = useState([])
-
+    const [bellCurveData1, setBellCurveData1] = useState([])
    
 
   const areaChange1 = (area) => {
@@ -88,6 +88,11 @@ const ComparePage3 = (props) => {
     setHistrogramData1(data)
   }
 
+  const bellCurveDataChange1 = (data) => {
+    setBellCurveData1(data)
+    console.log('setBellCurveData1: ', data);
+  }
+
 // =======================================================================
 
     const [height2, setHeight2] = useState("30%")
@@ -109,6 +114,7 @@ const ComparePage3 = (props) => {
     const [legendType2, setLegendType2] = useState('Interval') 
     const [compareData2, setCompareData2] = useState([])
     const [compareMode2, setCompareMode2] = useState('Off')
+    const [bellCurveData2, setBellCurveData2] = useState([])
 
     const areaChange2 = (area) => {
         setSelectArea2(area)
@@ -157,24 +163,12 @@ const ComparePage3 = (props) => {
         setLegendMin2(min)
     }
 
-    const  [diffTimeseries2, setDiffTimeseries2] = useState([])
     const compareModeChange2 = (mode) => {
         setCompareMode2(mode)
         if (mode === 'On'){
             for (let i = 0; i < compareData1.length; i++){
                 compareData2[i]['properties']['index'] = compareData1[i]['properties']['index'] - compareData2[i]['properties']['index']
             }
-            var sum1 = 0
-            for (let i = 0; i < timeSeriesData1.length; i++){
-                sum1 += timeSeriesData1[i]['index']
-            }
-            const avgTimeseries1 = sum1 / timeSeriesData1.length
-            var sum2 = 0
-            for (let i = 0; i < timeSeriesData2.length; i++){
-                sum2 += timeSeriesData2[i]['index']
-            }
-            const avgTimeseries2 = sum2 / timeSeriesData1.length
-            setDiffTimeseries2([{'area': selectArea1, 'index': avgTimeseries1-avgTimeseries2}])
         }else {
             let temp = gridOpacity3 + 1
             setGridopacity2(temp)
@@ -184,6 +178,10 @@ const ComparePage3 = (props) => {
     const getHistrogramData2 = (data) => {
         setHistrogramData2(data)
       }
+
+    const bellCurveDataChange2 = (data) => {
+    setBellCurveData2(data)
+    }
 
 // =======================================================================
     
@@ -206,6 +204,7 @@ const ComparePage3 = (props) => {
     const [legendType3, setLegendType3] = useState('Interval') 
     const [compareMode3, setCompareMode3] = useState('Off')
     const [compareData3, setCompareData3] = useState([])
+    const [bellCurveData3, setBellCurveData3] = useState([])
 
     const areaChange3 = (area) => {
         setSelectArea3(area)
@@ -253,24 +252,12 @@ const ComparePage3 = (props) => {
     const legendMinChange3 = (min) => {
         setLegendMin3(min)
     }
-    const  [diffTimeseries3, setDiffTimeseries3] = useState([])
     const compareModeChange3 = (mode) => {
         setCompareMode3(mode)
         if (mode === 'On'){
             for (let i = 0; i < compareData1.length; i++){
                 compareData3[i]['properties']['index'] = compareData1[i]['properties']['index'] - compareData3[i]['properties']['index']
             }
-            var sum1 = 0
-            for (let i = 0; i < timeSeriesData1.length; i++){
-                sum1 += timeSeriesData1[i]['index']
-            }
-            const avgTimeseries1 = sum1 / timeSeriesData1.length
-            var sum2 = 0
-            for (let i = 0; i < timeSeriesData3.length; i++){
-                sum2 += timeSeriesData3[i]['index']
-            }
-            const avgTimeseries3 = sum2 / timeSeriesData1.length
-            setDiffTimeseries3([{'area': selectArea1, 'index': avgTimeseries1-avgTimeseries3}])
         }else {
             let temp = gridOpacity3 + 1
             setGridopacity3(temp)
@@ -280,6 +267,10 @@ const ComparePage3 = (props) => {
     const getHistrogramData3 = (data) => {
         setHistrogramData3(data)
       }
+
+    const bellCurveDataChange3 = (data) => {
+        setBellCurveData3(data)
+    }
 
 // =======================================================================
    
@@ -308,6 +299,7 @@ const ComparePage3 = (props) => {
                             height={height1}
                             histrogramData = {histrogramData1}
                             width={width1}
+                            setBellCurveData = {bellCurveDataChange1}
                         />
                     </Layout>
         
@@ -399,7 +391,10 @@ const ComparePage3 = (props) => {
                             width={width2}
                             compareMode = {compareMode2}
                             histrogramData = {histrogramData2}
-                            compareDataGraph = {diffTimeseries2}
+                            // compareDataGraph = {diffTimeseries2}
+                            setBellCurveData = {bellCurveDataChange2}
+                            bellCurveData1 = {bellCurveData1}
+                            bellCurveCompare = {bellCurveData2}
                         />
                     </Layout>
         
@@ -494,7 +489,9 @@ const ComparePage3 = (props) => {
                             width={width3}
                             compareMode = {compareMode3}
                             histrogramData = {histrogramData3}
-                            compareDataGraph = {diffTimeseries3}
+                            setBellCurveData = {bellCurveDataChange3}
+                            bellCurveData1 = {bellCurveData1}
+                            bellCurveCompare = {bellCurveData3}
                         />
                     </Layout>
         
