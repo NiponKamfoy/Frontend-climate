@@ -180,6 +180,7 @@ const ComparePage3 = (props) => {
       }
 
     const bellCurveDataChange2 = (data) => {
+    console.log('setBellCurveData2: ', data);
     setBellCurveData2(data)
     }
 
@@ -269,7 +270,8 @@ const ComparePage3 = (props) => {
       }
 
     const bellCurveDataChange3 = (data) => {
-        setBellCurveData3(data)
+    console.log('setBellCurveData3: ', data);
+    setBellCurveData3(data)
     }
 
 // =======================================================================

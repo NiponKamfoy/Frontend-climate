@@ -97,6 +97,11 @@ const SinglePage = () => {
 //      } 
 //    }, [])
 
+  const [bellCurveData, setBellCurveData]  = useState([])
+  const bellCurveDataChange = (data) => {
+    setBellCurveData(data)
+    console.log('setBellCurveData1: ', data);
+  }
   return (
     <MapContainer 
       center={center} 
@@ -120,10 +125,11 @@ const SinglePage = () => {
               height={height}
               width={width}
               histrogramData = {histrogramData}
-            />
+              setBellCurveData = {bellCurveDataChange}
+              />
         </Layout>
 
-        {/* <IntervalGrid 
+        <IntervalGrid 
           area={selectArea} 
           data={selectData} 
           date={selectDate} 
@@ -136,14 +142,14 @@ const SinglePage = () => {
           legendMin={legendMin}
         />
 
-        <IntervalLegend 
+        {/* <IntervalLegend 
           dataIndexName={dataIndex}
           legendMax={legendMax}
           legendMin={legendMin}
           legendType={legendType}
         /> */}
 
-        <GradientGrid 
+        {/* <GradientGrid 
           area={selectArea} 
           data={selectData} 
           date={selectDate} 
@@ -154,7 +160,7 @@ const SinglePage = () => {
           gridOpacity={gridOpacity}
           legendMax={legendMax}
           legendMin={legendMin}
-        />
+        /> */}
 
         <GradientLegend 
           dataIndexName={dataIndex}

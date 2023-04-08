@@ -80,7 +80,9 @@ const IntervalGrid = (props) => {
         fetch(urlRequest, reqOptions)
         .then(r => r.json())
         .then(dataApi => {
+            // const dataApi = JSON.parse(dataStr)
             setData(dataApi)
+            console.log(dataApi);
             if(props.setCompareData !== undefined){
                 props.setCompareData(dataApi)
             }

@@ -92,16 +92,19 @@ const TimeSeries = (props) => {
             setBellCurveData(tempBellcurve)
             props.setBellCurveData(tempBellcurve)
         }
-        else if (props.dataType === 'Overall'){
+        if (props.dataType === 'Overall'){
             setKey('date')
             setValue('index')
             setData(props.data)
-        } else if (props.dataType === "Seasonal"){
+            console.log('overall');
+        }else if (props.dataType === "Seasonal"){
+            console.log('seasonal');
             setKey('month')
             setValue('value')
             setData(props.data2)
+            console.log(props.data2);
         } 
-    }, [props.dataType, props.data, props.data2, props.compareMode, props.compareDataGraph, props.histrogramData, props.type, mean, stdDev])
+    }, [props.dataType, props.data, props.data2, props.compareMode, props.compareDataGraph, props.histrogramData, props.type, mean, stdDev, props.bellCurveCompare, props.bellCurveData1])
 
     
       
@@ -206,7 +209,8 @@ const TimeSeries = (props) => {
                         stroke="red" 
                         dot={false}
                     />
-                    <XAxis dataKey={key}/>                        <YAxis />
+                    <XAxis dataKey={key}/>                        
+                    <YAxis />
                     <Tooltip />
                     <Legend verticalAlign="bottom"/>
                     <Draggable />
