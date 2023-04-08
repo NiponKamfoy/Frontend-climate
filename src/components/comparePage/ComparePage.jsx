@@ -33,6 +33,7 @@ const ComparePage = (props) => {
   const [legendMin1, setLegendMin1] =useState('')
   const [graphShow1, setGraphShow1] = useState('On')
   const [legendType1, setLegendType1] = useState('Interval') 
+  const [compareData1, setCompareData1] = useState([])
 
   const areaChange1 = (area) => {
     setSelectArea1(area)
@@ -85,7 +86,11 @@ const ComparePage = (props) => {
     setLegendMin1(min)
   }
 
- 
+  const [bellCurveData1, setBellCurveData1]  = useState([])
+  const bellCurveDataChange1 = (data) => {
+  setBellCurveData1(data)
+  console.log('setBellCurveData1: ', data);
+}
 
 // =======================================================================
     
@@ -106,6 +111,8 @@ const ComparePage = (props) => {
     const [legendMin2, setLegendMin2] =useState('')
     const [graphShow2, setGraphShow2] = useState('On')
     const [legendType2, setLegendType2] = useState('Interval')  
+    const [compareMode2, setCompareMode2] = useState('Off')
+    const [compareData2, setCompareData2] = useState([])
 
     const areaChange2 = (area) => {
         setSelectArea2(area)
@@ -157,6 +164,25 @@ const ComparePage = (props) => {
     const legendMinChange2 = (min) => {
         setLegendMin2(min)
     }
+    const [bellCurveData2, setBellCurveData2]  = useState([])
+    const bellCurveDataChange2 = (data) => {
+    setBellCurveData2(data)
+    console.log('setBellCurveData1: ', data);
+    }
+
+    const compareModeChange2 = (mode) => {
+        setCompareMode2(mode)
+        if (mode === 'On'){
+            for (let i = 0; i < compareData1.length; i++){
+                compareData2[i]['properties']['index'] = compareData1[i]['properties']['index'] - compareData2[i]['properties']['index']
+            }
+        }else {
+            let temp = gridOpacity2 + 1
+            setGridopacity2(temp)
+        }
+    }
+
+
 
 // =======================================================================
    
@@ -184,6 +210,7 @@ const ComparePage = (props) => {
                             dataType={dataType1}
                             height={height1}
                             width={width1}
+                            setBellCurveData = {bellCurveDataChange1}
                             histrogramData = {histrogramData1}
                             />
                     </Layout>
@@ -199,6 +226,7 @@ const ComparePage = (props) => {
                         gridOpacity={gridOpacity1}
                         legendMax={legendMax1}
                         legendMin={legendMin1}
+                        setCompareData = {setCompareData1}
                     />
 
                     <IntervalLegend 
@@ -271,8 +299,12 @@ const ComparePage = (props) => {
                             type={graphType2} 
                             dataType={dataType2}
                             height={height2}
+                            setBellCurveData = {bellCurveDataChange2}
                             histrogramData = {histrogramData2}
                             width={width2}
+
+                            bellCurveData1 = {bellCurveData1}
+                            bellCurveCompare = {bellCurveData2}
                         />
                     </Layout>
         
@@ -287,6 +319,8 @@ const ComparePage = (props) => {
                         gridOpacity={gridOpacity2}
                         legendMax={legendMax2}
                         legendMin={legendMin2}
+                        compareMode = {compareMode2}
+                        setCompareData = {setCompareData2}
                     />
 
                     <IntervalLegend 
@@ -334,6 +368,9 @@ const ComparePage = (props) => {
                         setLegendType={setLegendType2}
                         setHeight={setHeight2}
                         setWidth={setWidth2} 
+                        enableDiffMode={true} 
+                        setCompareMode={compareModeChange2}
+                        compareMode={compareMode2}
                     />
                 </MapContainer>
             </div>

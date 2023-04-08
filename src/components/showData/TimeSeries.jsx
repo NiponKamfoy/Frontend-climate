@@ -1,19 +1,35 @@
 import React, { useRef, useEffect, useState } from 'react'
-import { LineChart, 
-    Line, 
-    XAxis, 
-    YAxis, 
-    CartesianGrid, 
-    Tooltip, 
-    Legend, 
-    Bar,
-    ResponsiveContainer,Area, ComposedChart} from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Bar,ResponsiveContainer,Area, ComposedChart, ReferenceLine, BarChart} from 'recharts';
+
 import Draggable from 'react-draggable';
 import './timeSeries.css'
 import jstat from 'jstat';
 
-const TimeSeries = (props) => {
+import { mean, deviation } from 'd3-array';
+import { curveBasis } from 'd3-shape';
+import tempTimeseries from './tempTimeseries';
 
+// function normalDistribution(mu, sigma, x) {
+//   const factor = 1 / (sigma * Math.sqrt(2 * Math.PI));
+//   const exponential = Math.exp(-Math.pow(x - mu, 2) / (2 * Math.pow(sigma, 2)));
+//   return factor * exponential;
+// }
+
+// function generateBellCurveData(data) {
+//   const values = data.map(d => d.value);
+//   const avg = mean(values);
+//   const stdDev = deviation(values);
+//   const bellCurveData = [];
+//   for (let i = -4; i <= 4; i += 0.1) {
+//     const x = avg + i * stdDev;
+//     const y = normalDistribution(avg, stdDev, x);
+//     bellCurveData.push({'x': x,'y': y });
+//   }
+//   return bellCurveData;
+// }
+
+
+const TimeSeries = (props) => {
     const [data, setData] = useState(props.data)
     const [key, setKey] = useState('')
     const [value, setValue] = useState('')
@@ -55,21 +71,34 @@ const TimeSeries = (props) => {
     var mean = calculateMean(props.histrogramData);
     var stdDev = calculateStandardDeviation(props.histrogramData, mean);
     
-    function generateBellCurveData(mean, stdDev, numPoints = 100, histrogramdata) {
+    function generateBellCurveData(mean, stdDev, histrogramdata, numPoints = 100) {
         const data = [];
         
         for (let i = 0; i < histrogramdata.length; i++){
-            data.push({ x: histrogramdata[i]['value'], y:  1000*(jstat.normal.pdf(histrogramdata[i]['value'], mean, stdDev))});
+            data.push({ x: histrogramdata[i]['value'], y:  10*(jstat.normal.pdf(histrogramdata[i]['value'], mean, stdDev))});
         }
         return data;
     }
+
     const [bellCurveData, setBellCurveData] = useState([])
     const [bellCurveDataCompare, setBellCurveDataCompare] = useState([])
     const [bellCurveData1, setBellCurveData1] = useState([])
     const draggleRef = useRef(null);
-    
 
     useEffect(() => {
+
+        if (props.dataType === 'Overall'){
+            setKey('date')
+            setValue('index')
+            setData(props.data)
+            console.log('overall');
+        }else if (props.dataType === "Seasonal"){
+            console.log('seasonal');
+            setKey('month')
+            setValue('value')
+            setData(props.data2)
+            console.log(props.data2);
+        } 
         if (props.compareMode !== undefined && props.compareMode === "On"){
             setKey('value')
             setValue('frequency')
@@ -88,23 +117,15 @@ const TimeSeries = (props) => {
             setData(props.histrogramData)
             mean = calculateMean(props.histrogramData);
             stdDev = calculateStandardDeviation(props.histrogramData, mean);
-            let tempBellcurve = generateBellCurveData(mean, stdDev, props.histrogramData.length, props.histrogramData)
+            let tempBellcurve = generateBellCurveData(mean, stdDev, props.histrogramData)
+            // let tempBellcurve = generateBellCurveData(props.histrogramData)
             setBellCurveData(tempBellcurve)
+            console.log(tempBellcurve);
+            console.log(props.histrogramData);
             props.setBellCurveData(tempBellcurve)
         }
-        if (props.dataType === 'Overall'){
-            setKey('date')
-            setValue('index')
-            setData(props.data)
-            console.log('overall');
-        }else if (props.dataType === "Seasonal"){
-            console.log('seasonal');
-            setKey('month')
-            setValue('value')
-            setData(props.data2)
-            console.log(props.data2);
-        } 
-    }, [props.dataType, props.data, props.data2, props.compareMode, props.compareDataGraph, props.histrogramData, props.type, mean, stdDev, props.bellCurveCompare, props.bellCurveData1])
+        
+    }, [props.dataType, props.data, props.data2, props.compareMode, props.compareDataGraph, props.histrogramData, props.type, , props.bellCurveCompare, props.bellCurveData1])
 
     
       
@@ -219,12 +240,14 @@ const TimeSeries = (props) => {
         )
     }
     else if (props.type === "Histrogram"){
-        var max = data[0]['frequency']
+        var max = 0
         for (let i = 0; i < data.length; i++){
             if (data[i]['frequency'] > max){
                 max = data[i]['frequency']
             }
         }
+        console.log(data);
+        console.log(max);
         return (
 
             <ResponsiveContainer 
@@ -237,7 +260,8 @@ const TimeSeries = (props) => {
             <ComposedChart data={data}>
                 <CartesianGrid />
                 <XAxis data={bellCurveData} dataKey={'x'} />
-                <YAxis data={bellCurveData} dataKey={'y'} yAxisId={1} domain={[0, max]}/>
+                <YAxis dataKey={value} yAxisId={0} domain={[0, max]} />
+                <YAxis data={bellCurveData} dataKey={'y'} yAxisId={1} domain={[0, 1]} orientation='right'/>
                 <Tooltip />
                 <Legend />
                 <Bar
@@ -245,11 +269,38 @@ const TimeSeries = (props) => {
                     fill="#3288bd" 
                     name={props.dataIndexName} 
                     unit={props.dataIndexName.unit}
-                    yAxisId={1} 
+                    yAxisId={0}
                 />
-                <Area data={bellCurveData} dataKey={'y'} name={'Normal Distribution'} type="monotone" fill='red' stroke="red"  yAxisId={1}/>
+                <Area data={bellCurveData} dataKey={'y'} name={'Normal Distribution'} type="monotone" fill='green' stroke="green"  yAxisId={1} />
             </ComposedChart>
             </ResponsiveContainer>
+
+
+
+
+        //     <ResponsiveContainer height={props.height} 
+        //             width={props.width} 
+        //             debounce={1} 
+        //             className='graph'>
+        //         <BarChart data={bellCurveData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+        //             <CartesianGrid strokeDasharray="3 3" />
+        //             <XAxis dataKey="x" label={{ value: 'Value', position: 'insideBottomRight', offset: -10 }} />
+        //             <YAxis label={{ value: 'y', angle: -90, position: 'insideLeft' }} />
+        //             <Tooltip />
+        //             <Legend />
+        //             <Area dataKey="y" type="monotone" fill='green' stroke="green" />
+        //             <Bar dataKey="y" fill="#8884d8" />
+        //             <ReferenceLine y={0} stroke="#000" />
+        //             <Bar dataKey="y" fill="#82ca9d" />
+        //             <defs>
+        //                 <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+        //                     <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+        //                     <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+        //                 </linearGradient>
+        //             </defs>
+        //             {/* <path d={`M${bellCurveData.map(d => [xScale(d.x), yScale(d.y)]).join('L')}`} stroke="#82ca9d" strokeWidth={2} fill="none" /> */}
+        //         </BarChart>
+        //   </ResponsiveContainer>
         )
     }
 }
