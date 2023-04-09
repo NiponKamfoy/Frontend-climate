@@ -167,7 +167,7 @@ const ComparePage = (props) => {
     const [bellCurveData2, setBellCurveData2]  = useState([])
     const bellCurveDataChange2 = (data) => {
     setBellCurveData2(data)
-    console.log('setBellCurveData1: ', data);
+    console.log('setBellCurveData2: ', data);
     }
 
     const compareModeChange2 = (mode) => {
@@ -302,7 +302,7 @@ const ComparePage = (props) => {
                             setBellCurveData = {bellCurveDataChange2}
                             histrogramData = {histrogramData2}
                             width={width2}
-
+                            compareMode = {compareMode2}
                             bellCurveData1 = {bellCurveData1}
                             bellCurveCompare = {bellCurveData2}
                         />
@@ -371,6 +371,7 @@ const ComparePage = (props) => {
                         enableDiffMode={true} 
                         setCompareMode={compareModeChange2}
                         compareMode={compareMode2}
+
                     />
                 </MapContainer>
             </div>

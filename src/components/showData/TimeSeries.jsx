@@ -102,10 +102,13 @@ const TimeSeries = (props) => {
         if (props.compareMode !== undefined && props.compareMode === "On"){
             setKey('value')
             setValue('frequency')
-            if (props.bellCurveData1 !== undefined || props.bellCurveData1 !== []){
+            console.log(props.bellCurveData1, props.bellCurveCompare);
+            if (props.bellCurveData1 !== undefined && props.bellCurveData1 !== []){
+                console.log('setbellcurve data 1 timeseries : ', props.bellCurveData1);
                 setBellCurveData1(props.bellCurveData1)
             }
-            if (props.bellCurveData !== undefined || props.bellCurveDataCompare !== []){
+            if (props.bellCurveData !== undefined && props.bellCurveDataCompare !== []){
+                console.log('setbellCurveCompare timeseries : ', props.bellCurveCompare);
                 setBellCurveDataCompare(props.bellCurveCompare)
             }
            
@@ -125,40 +128,40 @@ const TimeSeries = (props) => {
             props.setBellCurveData(tempBellcurve)
         }
         
-    }, [props.dataType, props.data, props.data2, props.compareMode, props.compareDataGraph, props.histrogramData, props.type, , props.bellCurveCompare, props.bellCurveData1])
+    }, [props.dataType, props.compareMode, props.type])
 
     
       
     if (props.compareMode !== undefined && props.compareMode === "On"){
 
-        console.log('bellCurveData1: ', bellCurveData1);
-        console.log('bellCurveDataCompare: ', bellCurveDataCompare);
+        console.log('bellCurveData1: ', props.bellCurveData1);
+        console.log('bellCurveDataCompare: ', props.bellCurveCompare);
+        
+        var maxY = props.bellCurveData1[0]['y']
 
-        var maxY = bellCurveData1[0]['y']
-
-        for (let i = 0; i < bellCurveData1.length; i++){
-            if (bellCurveData1[i]['y'] > maxY){
-                maxY = bellCurveData1[i]['y']
+        for (let i = 0; i < props.bellCurveData1.length; i++){
+            if (props.bellCurveData1[i]['y'] > maxY){
+                maxY = props.bellCurveData1[i]['y']
             }
         }
 
-        for (let i = 0; i < bellCurveDataCompare.length; i++){
-            if (bellCurveDataCompare[i]['y'] > maxY){
-                maxY = bellCurveDataCompare[i]['y']
+        for (let i = 0; i < props.bellCurveCompare.length; i++){
+            if (props.bellCurveCompare[i]['y'] > maxY){
+                maxY = props.bellCurveCompare[i]['y']
             }
         }
 
-        var maxX = bellCurveData1[0]['x']
+        var maxX = props.bellCurveData1[0]['x']
 
-        for (let i = 0; i < bellCurveData1.length; i++){
-            if (bellCurveData1[i]['x'] > maxX){
-                maxX = bellCurveData1[i]['x']
+        for (let i = 0; i < props.bellCurveData1.length; i++){
+            if (props.bellCurveData1[i]['x'] > maxX){
+                maxX = props.bellCurveData1[i]['x']
             }
         }
 
-        for (let i = 0; i < bellCurveDataCompare.length; i++){
-            if (bellCurveDataCompare[i]['x'] > maxX){
-                maxX = bellCurveDataCompare[i]['x']
+        for (let i = 0; i < props.bellCurveCompare.length; i++){
+            if (props.bellCurveCompare[i]['x'] > maxX){
+                maxX = props.bellCurveCompare[i]['x']
             }
         }
         console.log('maxX : ', maxX);
@@ -170,16 +173,17 @@ const TimeSeries = (props) => {
                     className='graph'
                 >
 
-            <ComposedChart data={bellCurveDataCompare}>
+            <ComposedChart data={props.bellCurveData1}>
                 <CartesianGrid />
-                <XAxis data={bellCurveData1} dataKey={'x'} />
-                <YAxis data={bellCurveDataCompare} dataKey={'y'} yAxisId={1} domain={[0, maxY]}/>
+                <XAxis data={props.bellCurveData1} dataKey={'x'} />
+                <YAxis data={props.bellCurveData1} dataKey={'y'} yAxisId={1} domain={[0, maxY]}/>
                 <Tooltip />
                 <Legend />
-                <Area data={bellCurveData1} dataKey={'y'} name={'Graph 1 :'} type="monotone" fill='green' stroke="green"  yAxisId={1}/>
-                <Area data={bellCurveDataCompare} dataKey={'y'} name={'Graph 2 : '} type="monotone" fill='red' stroke="red"  yAxisId={1}/>
+                <Area data={props.bellCurveData1} dataKey={'y'} name={'Graph 1 :'} type="monotone" fill='green' stroke="green"  yAxisId={1}/>
+                <Area data={props.bellCurveCompare} dataKey={'y'} name={'Graph 2 : '} type="monotone" fill='red' stroke="red"  yAxisId={1}/>
             </ComposedChart>
             </ResponsiveContainer>
+
         )
     }
     else if (props.type === 'Linechart') {
@@ -246,8 +250,7 @@ const TimeSeries = (props) => {
                 max = data[i]['frequency']
             }
         }
-        console.log(data);
-        console.log(max);
+
         return (
 
             <ResponsiveContainer 

@@ -171,8 +171,8 @@ const dataIndex = {
     },
     "SPI":{
         'spi':{
-            'max': 2,
-            'min': -2,
+            'max': 1,
+            'min': -1,
             'unit': ""
         }
     }
