@@ -229,12 +229,12 @@ const ComparePage = (props) => {
                         setCompareData = {setCompareData1}
                     />
 
-                    <IntervalLegend 
+                    {/* <IntervalLegend 
                         dataIndexName={dataIndex1}
                         legendMax={legendMax1}
                         legendMin={legendMin1}
                         legendType={legendType1}
-                    />
+                    /> */}
 
                     <GradientLegend 
                         dataIndexName={dataIndex1}
@@ -323,12 +323,12 @@ const ComparePage = (props) => {
                         setCompareData = {setCompareData2}
                     />
 
-                    <IntervalLegend 
+                    {/* <IntervalLegend 
                         dataIndexName={dataIndex2}
                         legendMax={legendMax2}
                         legendMin={legendMin2}
                         legendType={legendType2}
-                    />
+                    /> */}
                     
                     <GradientLegend 
                         dataIndexName={dataIndex2}

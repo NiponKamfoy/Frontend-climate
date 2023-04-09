@@ -162,7 +162,6 @@ const SettingCompare2 = (props) => {
   const items_1 = [
         
             getItem('Select Area', 'area1', <GlobalOutlined />, [
-                getItem('Southeast Asia', 'subSEA', null, null),
                 getItem('Country', 'subCountry1', null, countryList1),
                 getItem('Thailand', 'subThai1', null, provinceList1),
             ]),

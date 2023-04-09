@@ -152,9 +152,8 @@ const Setting = (props) => {
 
   var items_1 = [
       getItem('Select Area', 'area', <GlobalOutlined />, [
-          getItem('Southeast Asia', 'subSEA', null, null),
           getItem('Country', 'subCountry', null, countryList),
-          getItem('Thailand', 'subThai', null, provinceList),
+          getItem('Province in Thailand', 'subThai', null, provinceList),
       ]),
       { type: 'divider' },
       getItem('Select Dataset', 'dataType', <DatabaseOutlined />, selectDataMenu),
@@ -297,7 +296,7 @@ const Setting = (props) => {
               Linechart
             </Radio>
             <Radio value="Histrogram" className='ant-radio-button'>
-              Histrogram
+              Histogram
             </Radio>
           </Radio.Group>
         </p>
@@ -357,7 +356,7 @@ const Setting = (props) => {
         <p style={{fontSize: '18px', fontWeight: 'bold'}}>
           Legend
         </p>
-        <p style={{fontSize: '12px', fontWeight: 'bold'}}>
+        {/* <p style={{fontSize: '12px', fontWeight: 'bold'}}>
           Type: <br />
           <Radio.Group onChange={legendChange} value={props.legendType} optionType='button' size='small'>
             <Radio value="Interval" className='ant-radio-button'>
@@ -367,8 +366,8 @@ const Setting = (props) => {
               Gradient
             </Radio>
           </Radio.Group>
-        </p>
-        <p style={{fontSize: '12px', fontWeight: 'bold'}}>
+        </p> */}
+        {/* <p style={{fontSize: '12px', fontWeight: 'bold'}}>
             Color: <br />
             <Radio.Group onChange={legendChange} value={props.legendType} optionType='button' size='small'>
               <Radio value="Divergent" className='ant-radio-button'>
@@ -381,7 +380,7 @@ const Setting = (props) => {
                 Sequential Blue
               </Radio>
             </Radio.Group>
-          </p>
+          </p> */}
         <br />
         <InputNumber
           prefix="Min:"

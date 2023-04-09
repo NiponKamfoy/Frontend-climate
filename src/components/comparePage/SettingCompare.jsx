@@ -153,7 +153,6 @@ const SettingCompare = (props) => {
   const items_1 = [
         
             getItem('Select Area', 'area1', <GlobalOutlined />, [
-                getItem('Southeast Asia', 'subSEA', null, null),
                 getItem('Country', 'subCountry1', null, countryList1),
                 getItem('Thailand', 'subThai1', null, provinceList1),
             ]),
@@ -340,12 +339,12 @@ const SettingCompare = (props) => {
         <br />
         <p className="topic">Legend</p>
         <br />
-        <p className="sub-topic">
+        {/* <p className="sub-topic">
           Type: <Radio.Group onChange={legendChange} value={props.legendType} optionType='button'>
                   <Radio value="Interval">Interval</Radio>
                   <Radio value="Gradient">Gradient</Radio>
                 </Radio.Group>
-        </p>
+        </p> */}
         <br />
         <InputNumber
           prefix="Min:"
