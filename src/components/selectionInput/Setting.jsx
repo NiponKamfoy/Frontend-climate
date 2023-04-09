@@ -242,11 +242,10 @@ const Setting = (props) => {
             danger
             type="default"
             onClick={() => {
-              // props.setGraphType('Linechart');
-              // props.setDataType('Overall')
               legendMinChange('');
               legendMaxChange('');
               opecityChange(70);
+              props.setGraphShow('On')
             }}
           >
             Reset
@@ -255,11 +254,10 @@ const Setting = (props) => {
             key="back" 
             // onClick={handleCancel}
             onClick={() => {
-              // props.setGraphType('Linechart');
-              // props.setDataType('Overall')
               legendMinChange('');
               legendMaxChange('');
               opecityChange(70);
+              props.setGraphShow('On')
               handleCancel();
             }}
           >
@@ -401,14 +399,32 @@ const Setting = (props) => {
         />
       </Modal>
 
-      <Modal title="About" open={open1} onOk={handleOk1} onCancel={handleCancel1}>
-          <ol className='sub-topic'>Shape file :</ol> 
-            <li>Southeast Asia : <a href=''>Click here</a></li>
-            <li>Province in Thailand : <a href='https://csuwan.weebly.com/360436343623360936603650362736213604--download.html'>Click here</a></li>
-            <br />
-          <ol className='sub-topic'>TileLayer :</ol>
-            <li>Stadia maps : <a href='https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png'>Click here</a></li>
-            <br />
+      <Modal 
+        title="About" 
+        open={open1} 
+        onOk={handleOk1}
+        onCancel={handleCancel1}
+        footer={[
+          <Button 
+            key="submit" 
+            type="primary"  
+            onClick={handleOk1}
+          >
+            OK
+          </Button>
+        ]}
+      >
+          <ol style={{fontSize: '14px', fontWeight: 'bold'}}>
+            Shape file
+          </ol> 
+            <li>Southeast Asia: <a href=''>Click here</a></li>
+            <li>Province in Thailand: <a href='https://csuwan.weebly.com/360436343623360936603650362736213604--download.html'>Click here</a></li>
+          <br />
+          <ol style={{fontSize: '14px', fontWeight: 'bold'}}>
+            TileLayer
+          </ol>
+            <li>Stadia maps: <a href='https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png'>Click here</a></li>
+          <br />
       </Modal>
     </>
   );

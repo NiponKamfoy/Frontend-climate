@@ -11,8 +11,8 @@ const SelectDate = (props) => {
         <div>
         <RangePicker 
             onChange={(val) => props.dateChange(val.toString())}
-            className="rangepicker"
             picker={props.picker}
+            className='ant-calendar-picker'
         />
       </div>
     )

@@ -26,6 +26,8 @@ const SettingCompare2 = (props) => {
 
   const draggleRef = useRef(null);
 
+  const formatter = (value) => `${value}%`;
+
   const showModal = () => {
     setOpen(true);
   };
@@ -167,14 +169,10 @@ const SettingCompare2 = (props) => {
             ]),
             { type: 'divider' },
             getItem('Select Dataset', 'dataType1', <DatabaseOutlined />, selectDataMenuLeft),
-            { type: 'divider' },
-            getItem(
-                <SelectDate date={props.date1} picker={picker1} dateChange={props.dateChange1}/> 
-                
-            , 'dateRange1'),
-        
-    ];
-    const formatter = (value) => `${value}%`;
+            // { type: 'divider' },
+            // getItem(<SelectDate date={props.date1} picker={picker1} dateChange={props.dateChange1}/> , 'dateRange1'),
+        ];
+
     const onClick = (e) => {
       const dataNameArray1 = props.data1.split('@')
       let typeIdex1 = dataNameArray1[2]
@@ -250,9 +248,9 @@ const SettingCompare2 = (props) => {
               <h3>Setting</h3>
             </div>
           }
-          style={{
-            top: 20,
-          }}
+          // style={{
+          //   top: 20,
+          // }}
           open={open}
           onOk={handleOk}
           onCancel={handleCancel}
@@ -264,6 +262,8 @@ const SettingCompare2 = (props) => {
                 legendMinChange('');
                 legendMaxChange('');
                 opecityChange(70);
+                props.setGraphShow('On')
+                props.setCompareMode('Off')
               }}
             >
               Reset
@@ -275,6 +275,8 @@ const SettingCompare2 = (props) => {
                 legendMinChange('');
                 legendMaxChange('');
                 opecityChange(70);
+                props.setGraphShow('On')
+                props.setCompareMode('Off')
                 handleCancel();
               }}
             >
@@ -299,61 +301,90 @@ const SettingCompare2 = (props) => {
           )}
         >
           <Menu defaultSelectedKeys={['1']} mode="vertical" items={items_1} onClick={onClick}/>
+          <SelectDate date={props.date1} picker={picker1} dateChange={props.dateChange1}/>
           <br />
-          <p className="topic">Graph</p>
-          <p className="sub-topic">
-            Type: <Radio.Group onChange={graphChange} value={props.graphType} optionType='button'>
-                    <Radio value="Linechart">Linechart</Radio>
-                    <Radio value="Histrogram">Histrogram</Radio>
-                  </Radio.Group>
+          <p style={{fontSize: '18px', fontWeight: 'bold'}}>
+            Graph
           </p>
-          <p className="sub-topic">
-            Data: <Radio.Group onChange={dataChange} value={props.dataType} optionType='button'>
-                    <Radio value="Overall">Overall</Radio>
-                    <Radio value="Seasonal">Seasonal</Radio>
-                  </Radio.Group>
+          <p style={{fontSize: '12px', fontWeight: 'bold'}}>
+            Type: <br />
+            <Radio.Group onChange={graphChange} value={props.graphType} optionType='button' size='small'>
+              <Radio value="Linechart" className='ant-radio-button'>
+                Linechart
+                </Radio>
+              <Radio value="Histrogram" className='ant-radio-button'>
+                Histrogram
+              </Radio>
+            </Radio.Group>
           </p>
-          <p className="sub-topic">
-            Show: <Radio.Group onChange={graphShow} value={props.graphShow} optionType='button'>
-                    <Radio value="On">On</Radio>
-                    <Radio value="Off">Off</Radio>
-                  </Radio.Group>
+          <p style={{fontSize: '12px', fontWeight: 'bold'}}>
+            Data: <br />
+            <Radio.Group onChange={dataChange} value={props.dataType} optionType='button' size='small'>
+              <Radio value="Overall" className='ant-radio-button'>
+                Overall
+              </Radio>
+              <Radio value="Seasonal" className='ant-radio-button'>
+                Seasonal
+              </Radio>
+            </Radio.Group>
           </p>
-          <p className="sub-topic">
-            Compare 2 map:  <Radio.Group onChange={compareModeChange} value={props.compareMode} optionType='button'>
-                    <Radio value="On">On</Radio>
-                    <Radio value="Off">Off</Radio>
-                  </Radio.Group>
+          <p style={{fontSize: '12px', fontWeight: 'bold'}}>
+            Show: <br />
+            <Radio.Group onChange={graphShow} value={props.graphShow} optionType='button' size='small'>
+              <Radio value="On" className='ant-radio-button'>
+                On
+              </Radio>
+              <Radio value="Off" className='ant-radio-button'>
+                Off
+              </Radio>
+            </Radio.Group>
+          </p>
+          <p style={{fontSize: '12px', fontWeight: 'bold'}}>
+            Compare 2 map: <br />
+            <Radio.Group onChange={compareModeChange} value={props.compareMode} optionType='button' size='small'>
+              <Radio value="On" className='ant-radio-button'>
+                On
+              </Radio>
+              <Radio value="Off" className='ant-radio-button'>
+                Off
+              </Radio>
+            </Radio.Group>
           </p>
           <br />
-          <p className="topic">Grid opacity</p>
+          <p style={{fontSize: '18px', fontWeight: 'bold'}}>
+            Grid opacity
+          </p>
           <Row>
             <Col span={12}>
               <Slider
-                min={1}
+                min={0}
                 max={100}
                 onChange={opecityChange}
                 tooltip = {formatter}
                 value={typeof inputValue === 'number' ? inputValue : 70}
+                style={{width: '150%'}}
               />
             </Col>
             <Col span={4}>
               <InputNumber
-                min={1}
-                max={10}
+                min={0}
+                max={100}
                 style={{
-                  margin: '0 16px',
+                  margin: '0 145px',
                 }}
                 value={inputValue}
                 formatter={(value) => `${value}%`}
                 parser={(value) => value.replace('%', '')}
                 onChange={opecityChange}
+                size='small'
               />
             </Col>
           </Row>
           <br />
-          <p className="topic">Legend</p>
-          <br />
+          <p style={{fontSize: '18px', fontWeight: 'bold'}}>
+            Legend
+          </p>
+          {/* <br />
           <p className="sub-topic">
             Type: <Radio.Group onChange={legendChange} value={props.legendType} optionType='button'>
                     <Radio value="Interval">Interval</Radio>
@@ -365,36 +396,53 @@ const SettingCompare2 = (props) => {
                     <Radio value="Divergent">Divergent</Radio>
                     <Radio value="Sequential">Sequential</Radio>
                   </Radio.Group>
-          </p>
+          </p> */}
           <br />
           <InputNumber
             prefix="Min:"
-            style={{width: '49%'}}
+            style={{width: '49.5%'}}
             onChange={legendMinChange}
             defaultValue={props.legendMin}
             value={legendMinValue} 
-            min={0}
-            // disabled={disLegend}
+            size='small'
           />
           <> </>
           <InputNumber
             prefix="Max:"
-            style={{width: '49%'}}
+            style={{width: '49.5%'}}
             onChange={legendMaxChange}
             defaultValue={props.legendMax}  
             value={legendMaxValue}
-            // disabled={disLegend}        
+            size='small'       
           />
         </Modal>
   
-        <Modal title="About" open={open1} onOk={handleOk1} onCancel={handleCancel1}>
-            <ol className='sub-topic'>Shape file :</ol> 
-              <li>Southeast Asia : <a href='https://csuwan.weebly.com/360436343623360936603650362736213604--download.html'>Click here</a></li>
-              <li>Province in Thailand : <a href='https://csuwan.weebly.com/360436343623360936603650362736213604--download.html'>Click here</a></li>
-              <br />
-            <ol className='sub-topic'>TileLayer :</ol>
-              <li>Stadia maps : <a href='https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png'>Click here</a></li>
-              <br />
+        <Modal 
+          title="About" 
+          open={open1} 
+          onOk={handleOk1}
+          onCancel={handleCancel1}
+          footer={[
+            <Button 
+              key="submit" 
+              type="primary"  
+              onClick={handleOk1}
+            >
+              OK
+            </Button>
+          ]}
+        >
+          <ol style={{fontSize: '14px', fontWeight: 'bold'}}>
+            Shape file
+          </ol> 
+            <li>Southeast Asia: <a href=''>Click here</a></li>
+            <li>Province in Thailand: <a href='https://csuwan.weebly.com/360436343623360936603650362736213604--download.html'>Click here</a></li>
+          <br />
+          <ol style={{fontSize: '14px', fontWeight: 'bold'}}>
+            TileLayer
+          </ol>
+            <li>Stadia maps: <a href='https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png'>Click here</a></li>
+          <br />
         </Modal>
       </>
     );
@@ -458,9 +506,9 @@ const SettingCompare2 = (props) => {
               <h3>Setting</h3>
             </div>
           }
-          style={{
-            top: 20,
-          }}
+          // style={{
+          //   top: 20,
+          // }}
           open={open}
           onOk={handleOk}
           onCancel={handleCancel}
@@ -472,6 +520,7 @@ const SettingCompare2 = (props) => {
                 legendMinChange('');
                 legendMaxChange('');
                 opecityChange(70);
+                props.setGraphShow('On')
               }}
             >
               Reset
@@ -483,6 +532,7 @@ const SettingCompare2 = (props) => {
                 legendMinChange('');
                 legendMaxChange('');
                 opecityChange(70);
+                props.setGraphShow('On')
                 handleCancel();
               }}
             >
@@ -507,90 +557,131 @@ const SettingCompare2 = (props) => {
           )}
         >
           <Menu defaultSelectedKeys={['1']} mode="vertical" items={items_1} onClick={onClick}/>
+          <SelectDate date={props.date1} picker={picker1} dateChange={props.dateChange1}/>
           <br />
-          <p className="topic">Graph</p>
-          <p className="sub-topic">
-            Type: <Radio.Group onChange={graphChange} value={props.graphType} optionType='button'>
-                    <Radio value="Linechart">Linechart</Radio>
-                    <Radio value="Histrogram">Histrogram</Radio>
-                  </Radio.Group>
+          <p style={{fontSize: '18px', fontWeight: 'bold'}}>
+            Graph
           </p>
-          <p className="sub-topic">
-            Data: <Radio.Group onChange={dataChange} value={props.dataType} optionType='button'>
-                    <Radio value="Overall">Overall</Radio>
-                    <Radio value="Seasonal">Seasonal</Radio>
-                  </Radio.Group>
+          <p style={{fontSize: '12px', fontWeight: 'bold'}}>
+            Type: <br />
+            <Radio.Group onChange={graphChange} value={props.graphType} optionType='button' size='small'>
+              <Radio value="Linechart" className='ant-radio-button'>
+                Linechart
+              </Radio>
+              <Radio value="Histrogram" className='ant-radio-button'>
+                Histrogram
+              </Radio>
+            </Radio.Group>
           </p>
-          <p className="sub-topic">
-            Show: <Radio.Group onChange={graphShow} value={props.graphShow} optionType='button'>
-                    <Radio value="On">On</Radio>
-                    <Radio value="Off">Off</Radio>
-                  </Radio.Group>
+          <p style={{fontSize: '12px', fontWeight: 'bold'}}>
+            Data: <br />
+            <Radio.Group onChange={dataChange} value={props.dataType} optionType='button' size='small'>
+              <Radio value="Overall" className='ant-radio-button'>
+                Overall
+              </Radio>
+              <Radio value="Seasonal" className='ant-radio-button'>
+                Seasonal
+              </Radio>
+            </Radio.Group>
+          </p>
+          <p style={{fontSize: '12px', fontWeight: 'bold'}}>
+            Show: <br />
+            <Radio.Group onChange={graphShow} value={props.graphShow} optionType='button' size='small'>
+              <Radio value="On" className='ant-radio-button'>
+                On
+              </Radio>
+              <Radio value="Off" className='ant-radio-button'>
+                Off
+              </Radio>
+            </Radio.Group>
           </p>
           <br />
-          <p className="topic">Grid opacity</p>
+          <p style={{fontSize: '18px', fontWeight: 'bold'}}>
+            Grid opacity
+          </p>
           <Row>
             <Col span={12}>
               <Slider
-                min={1}
+                min={0}
                 max={100}
                 onChange={opecityChange}
                 tooltip = {formatter}
                 value={typeof inputValue === 'number' ? inputValue : 70}
+                style={{width: '150%'}}
               />
             </Col>
             <Col span={4}>
               <InputNumber
-                min={1}
-                max={10}
+                min={0}
+                max={100}
                 style={{
-                  margin: '0 16px',
+                  margin: '0 145px',
                 }}
                 value={inputValue}
                 formatter={(value) => `${value}%`}
                 parser={(value) => value.replace('%', '')}
                 onChange={opecityChange}
+                size='small'
               />
             </Col>
           </Row>
           <br />
-          <p className="topic">Legend</p>
-          <br />
+          <p style={{fontSize: '18px', fontWeight: 'bold'}}>
+            Legend
+          </p>
+          {/* <br />
           <p className="sub-topic">
             Type: <Radio.Group onChange={legendChange} value={props.legendType} optionType='button'>
                     <Radio value="Interval">Interval</Radio>
                     <Radio value="Gradient">Gradient</Radio>
                   </Radio.Group>
-          </p>
+          </p> */}
           <br />
           <InputNumber
             prefix="Min:"
-            style={{width: '49%'}}
+            style={{width: '49.5%'}}
             onChange={legendMinChange}
             defaultValue={props.legendMin}
-            value={legendMinValue} 
-            min={0}
-            // disabled={disLegend}
+            value={''} 
+            size='small'
           />
           <> </>
           <InputNumber
             prefix="Max:"
-            style={{width: '49%'}}
+            style={{width: '49.5%'}}
             onChange={legendMaxChange}
             defaultValue={props.legendMax}  
-            value={legendMaxValue}
-            // disabled={disLegend}        
+            value={''}
+            size='small'       
           />
         </Modal>
   
-        <Modal title="About" open={open1} onOk={handleOk1} onCancel={handleCancel1}>
-            <ol className='sub-topic'>Shape file :</ol> 
-              <li>Southeast Asia : <a href=''>Click here</a></li>
-              <li>Province in Thailand : <a href='https://csuwan.weebly.com/360436343623360936603650362736213604--download.html'>Click here</a></li>
-              <br />
-            <ol className='sub-topic'>TileLayer :</ol>
-              <li>Stadia maps : <a href='https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png'>Click here</a></li>
-              <br />
+        <Modal 
+          title="About" 
+          open={open1} 
+          onOk={handleOk1}
+          onCancel={handleCancel1}
+          footer={[
+            <Button 
+              key="submit" 
+              type="primary"  
+              onClick={handleOk1}
+            >
+              OK
+            </Button>
+          ]}
+        >
+          <ol style={{fontSize: '14px', fontWeight: 'bold'}}>
+            Shape file
+          </ol> 
+            <li>Southeast Asia: <a href=''>Click here</a></li>
+            <li>Province in Thailand: <a href='https://csuwan.weebly.com/360436343623360936603650362736213604--download.html'>Click here</a></li>
+          <br />
+          <ol style={{fontSize: '14px', fontWeight: 'bold'}}>
+            TileLayer
+          </ol>
+            <li>Stadia maps: <a href='https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png'>Click here</a></li>
+          <br />
         </Modal>
       </>
     );
