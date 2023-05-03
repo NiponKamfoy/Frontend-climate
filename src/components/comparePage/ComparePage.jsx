@@ -229,19 +229,19 @@ const ComparePage = (props) => {
                         setCompareData = {setCompareData1}
                     />
 
-                    <IntervalLegend 
+                    {/* <IntervalLegend 
                         dataIndexName={dataIndex1}
                         legendMax={legendMax1}
                         legendMin={legendMin1}
                         legendType={legendType1}
-                    />
+                    /> */}
 
-                    {/* <GradientLegend 
+                    <GradientLegend 
                         dataIndexName={dataIndex1}
                         legendMax={legendMax1}
                         legendMin={legendMin1}
                         legendType={legendType1}        
-                    /> */}
+                    />
         
                     <Breadcrumb 
                         selectArea={selectArea1} 
@@ -323,20 +323,19 @@ const ComparePage = (props) => {
                         setCompareData = {setCompareData2}
                     />
 
-                    <IntervalLegend 
+                    {/* <IntervalLegend 
                         dataIndexName={dataIndex2}
                         legendMax={legendMax2}
                         legendMin={legendMin2}
                         legendType={legendType2}
-                        compareMode = {compareMode2}
-                    />
+                    /> */}
                     
-                    {/* <GradientLegend 
+                    <GradientLegend 
                         dataIndexName={dataIndex2}
                         legendMax={legendMax2}
                         legendMin={legendMin2}
                         legendType={legendType2}        
-                    /> */}
+                    />
         
                     <Breadcrumb 
                         selectArea={selectArea2} 

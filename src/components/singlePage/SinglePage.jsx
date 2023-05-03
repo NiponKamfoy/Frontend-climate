@@ -142,12 +142,12 @@ const SinglePage = () => {
           legendMin={legendMin}
         />
 
-        <IntervalLegend 
+        {/* <IntervalLegend 
           dataIndexName={dataIndex}
           legendMax={legendMax}
           legendMin={legendMin}
           legendType={legendType}
-        />
+        /> */}
 
         {/* <GradientGrid 
           area={selectArea} 
@@ -162,12 +162,12 @@ const SinglePage = () => {
           legendMin={legendMin}
         /> */}
 
-        {/* <GradientLegend 
+        <GradientLegend 
           dataIndexName={dataIndex}
           legendMax={legendMax}
           legendMin={legendMin}
           legendType={legendType}        
-        /> */}
+        />
 
         <Breadcrumb 
           selectArea={selectArea} 
